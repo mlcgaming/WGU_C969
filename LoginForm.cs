@@ -14,6 +14,28 @@ namespace WGU_C969 {
             InitializeComponent();
         }
 
+        private void ValidateForm() {
+            bool formValid = true;
+
+            string username = tboxUsername.Text;
+            string password = tboxPassword.Text;
+
+            if(username.Replace(" ", "").Length == 0) {
+                formValid = false;
+            }
+
+            if(password.Replace(" ", "").Length == 0) {
+                formValid = false;
+            }
+
+            if(formValid == true) {
+                btnLogin.Enabled = true;
+            }
+            else {
+                btnLogin.Enabled = false;
+            }
+        }
+
         private void btnConnectionInfo_Click(object sender, EventArgs e) {
             ConnectionInfoForm connForm = new ConnectionInfoForm();
             connForm.ShowDialog();
@@ -22,13 +44,13 @@ namespace WGU_C969 {
 
         }
         private void btnCancel_Click(object sender, EventArgs e) {
-
+            Close();
         }
         private void tboxUsername_TextChanged(object sender, EventArgs e) {
-
+            ValidateForm();
         }
         private void tboxPassword_TextChanged(object sender, EventArgs e) {
-
+            ValidateForm();
         }
     }
 }
