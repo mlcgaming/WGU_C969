@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using WGU_C969.DBItems;
+using WGU_C969.C969Exceptions;
+using MySql.Data.MySqlClient;
 
 namespace WGU_C969 {
     public partial class LoginForm : Form {
+        public event EventHandler<LoginFormUserLoggedInEventArgs> UserLoggedIn;
+
         public LoginForm() {
             InitializeComponent();
         }
@@ -41,7 +39,45 @@ namespace WGU_C969 {
             connForm.ShowDialog();
         }
         private void btnLogin_Click(object sender, EventArgs e) {
+            UserAccount potentialLogin = null;
 
+            MySqlConnection connection = new MySqlConnection(Settings.DBConnectionString);
+
+            try {
+                connection.Open();
+                string query = $"SELECT * FROM user WHERE userName = \"{tboxUsername.Text}\"";
+
+                MySqlCommand command = new MySqlCommand(query, connection);
+                MySqlDataReader reader = command.ExecuteReader();
+
+                while(reader.Read()) {
+                    if(reader.HasRows) {
+                        potentialLogin = new UserAccount(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetBoolean(3), reader.GetDateTime(4), reader.GetString(5));
+                    }
+                }
+            }
+            catch (MySqlException ex) {
+                EventLogger.LogConnectionIssue();
+                MessageBox.Show(ex.Message);
+            }
+            finally {
+                connection.Close();
+            }
+
+            try {
+                if(potentialLogin != null && potentialLogin.Password == tboxPassword.Text) {
+                    OnUserLoggedIn(potentialLogin);
+                    EventLogger.LogSuccessfulLogin(potentialLogin);
+                    Close();
+                }
+                else {
+                    EventLogger.LogUnsuccessfulLogin(tboxUsername.Text);
+                    throw new LoginInvalidException("Invalid Username or Password");
+                }
+            }
+            catch(LoginInvalidException ex) {
+                MessageBox.Show(ex.Message);
+            }
         }
         private void btnCancel_Click(object sender, EventArgs e) {
             Close();
@@ -51,6 +87,10 @@ namespace WGU_C969 {
         }
         private void tboxPassword_TextChanged(object sender, EventArgs e) {
             ValidateForm();
+        }
+
+        private void OnUserLoggedIn(UserAccount user) {
+            UserLoggedIn?.Invoke(null, new LoginFormUserLoggedInEventArgs(user));
         }
     }
 }
