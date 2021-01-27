@@ -1,0 +1,12 @@
+C:\Users\Max Courneya\source\repos\WGU_C969\obj\Debug\WGU_C969.Properties.Resources.resources
+C:\Users\Max Courneya\source\repos\WGU_C969\obj\Debug\WGU_C969.csproj.GenerateResource.cache
+C:\Users\Max Courneya\source\repos\WGU_C969\obj\Debug\WGU_C969.csproj.CoreCompileInputs.cache
+C:\Users\Max Courneya\source\repos\WGU_C969\bin\Debug\WGU_C969.exe.config
+C:\Users\Max Courneya\source\repos\WGU_C969\bin\Debug\WGU_C969.exe
+C:\Users\Max Courneya\source\repos\WGU_C969\bin\Debug\WGU_C969.pdb
+C:\Users\Max Courneya\source\repos\WGU_C969\obj\Debug\WGU_C969.exe
+C:\Users\Max Courneya\source\repos\WGU_C969\obj\Debug\WGU_C969.pdb
+C:\Users\Max Courneya\source\repos\WGU_C969\obj\Debug\WGU_C969.MainForm.resources
+C:\Users\Max Courneya\source\repos\WGU_C969\obj\Debug\WGU_C969.ConnectionInfoForm.resources
+C:\Users\Max Courneya\source\repos\WGU_C969\obj\Debug\WGU_C969.LoginForm.resources
+C:\Users\Max Courneya\source\repos\WGU_C969\obj\Debug\WGU_C969.csprojAssemblyReference.cache
