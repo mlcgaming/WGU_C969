@@ -62,11 +62,15 @@
             this.btnApptNew = new System.Windows.Forms.Button();
             this.btnApptDelete = new System.Windows.Forms.Button();
             this.btnApptSave = new System.Windows.Forms.Button();
+            this.grpReports = new System.Windows.Forms.GroupBox();
+            this.cmbReportType = new System.Windows.Forms.ComboBox();
+            this.btnReportGenerate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataAppointmentView)).BeginInit();
             this.grpAppointment.SuspendLayout();
             this.grpCustomer.SuspendLayout();
             this.grpApptDetails.SuspendLayout();
             this.grpCustomerDetails.SuspendLayout();
+            this.grpReports.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataAppointmentView
@@ -450,11 +454,40 @@
             this.btnApptSave.Text = "Save";
             this.btnApptSave.UseVisualStyleBackColor = true;
             // 
+            // grpReports
+            // 
+            this.grpReports.Controls.Add(this.btnReportGenerate);
+            this.grpReports.Controls.Add(this.cmbReportType);
+            this.grpReports.Location = new System.Drawing.Point(15, 212);
+            this.grpReports.Name = "grpReports";
+            this.grpReports.Size = new System.Drawing.Size(260, 51);
+            this.grpReports.TabIndex = 4;
+            this.grpReports.TabStop = false;
+            this.grpReports.Text = "Reports";
+            // 
+            // cmbReportType
+            // 
+            this.cmbReportType.FormattingEnabled = true;
+            this.cmbReportType.Location = new System.Drawing.Point(6, 19);
+            this.cmbReportType.Name = "cmbReportType";
+            this.cmbReportType.Size = new System.Drawing.Size(162, 21);
+            this.cmbReportType.TabIndex = 0;
+            // 
+            // btnReportGenerate
+            // 
+            this.btnReportGenerate.Location = new System.Drawing.Point(179, 17);
+            this.btnReportGenerate.Name = "btnReportGenerate";
+            this.btnReportGenerate.Size = new System.Drawing.Size(75, 23);
+            this.btnReportGenerate.TabIndex = 11;
+            this.btnReportGenerate.Text = "Generate";
+            this.btnReportGenerate.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(601, 533);
+            this.Controls.Add(this.grpReports);
             this.Controls.Add(this.grpCustomer);
             this.Controls.Add(this.grpAppointment);
             this.Controls.Add(this.lblAppointementsHeader);
@@ -471,6 +504,7 @@
             this.grpApptDetails.PerformLayout();
             this.grpCustomerDetails.ResumeLayout(false);
             this.grpCustomerDetails.PerformLayout();
+            this.grpReports.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -517,6 +551,9 @@
         private System.Windows.Forms.Label lblCustomerName;
         private System.Windows.Forms.ComboBox cmbCustomerId;
         private System.Windows.Forms.Label lblCustomerId;
+        private System.Windows.Forms.GroupBox grpReports;
+        private System.Windows.Forms.Button btnReportGenerate;
+        private System.Windows.Forms.ComboBox cmbReportType;
     }
 }
 
