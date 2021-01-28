@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppointmentListing.cs" />
+    <Compile Include="C969Exceptions\InvalidAppointmentDateTimeException.cs" />
     <Compile Include="C969Exceptions\LoginInvalidException.cs" />
     <Compile Include="ConnectionInfoForm.cs">
       <SubType>Form</SubType>

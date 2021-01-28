@@ -66,13 +66,13 @@
             this.btnReportGenerate = new System.Windows.Forms.Button();
             this.cmbReportType = new System.Windows.Forms.ComboBox();
             this.grpOptions = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.lblApptView = new System.Windows.Forms.Label();
-            this.lblTimeSet = new System.Windows.Forms.Label();
             this.radioApptViewWeek = new System.Windows.Forms.RadioButton();
             this.radioApptViewMonth = new System.Windows.Forms.RadioButton();
-            this.radioTimeViewUTC = new System.Windows.Forms.RadioButton();
             this.radioTimeViewLocal = new System.Windows.Forms.RadioButton();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.radioTimeViewUTC = new System.Windows.Forms.RadioButton();
+            this.lblTimeSet = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataAppointmentView)).BeginInit();
             this.grpAppointment.SuspendLayout();
             this.grpApptDetails.SuspendLayout();
@@ -131,6 +131,7 @@
             this.btnApptNew.TabIndex = 10;
             this.btnApptNew.Text = "New";
             this.btnApptNew.UseVisualStyleBackColor = true;
+            this.btnApptNew.Click += new System.EventHandler(this.btnApptNew_Click);
             // 
             // grpApptDetails
             // 
@@ -285,12 +286,14 @@
             // 
             // btnApptDelete
             // 
+            this.btnApptDelete.Enabled = false;
             this.btnApptDelete.Location = new System.Drawing.Point(228, 301);
             this.btnApptDelete.Name = "btnApptDelete";
             this.btnApptDelete.Size = new System.Drawing.Size(75, 23);
             this.btnApptDelete.TabIndex = 9;
             this.btnApptDelete.Text = "Delete";
             this.btnApptDelete.UseVisualStyleBackColor = true;
+            this.btnApptDelete.Click += new System.EventHandler(this.btnApptDelete_Click);
             // 
             // tboxApptId
             // 
@@ -302,12 +305,14 @@
             // 
             // btnApptSave
             // 
+            this.btnApptSave.Enabled = false;
             this.btnApptSave.Location = new System.Drawing.Point(147, 301);
             this.btnApptSave.Name = "btnApptSave";
             this.btnApptSave.Size = new System.Drawing.Size(75, 23);
             this.btnApptSave.TabIndex = 8;
             this.btnApptSave.Text = "Save";
             this.btnApptSave.UseVisualStyleBackColor = true;
+            this.btnApptSave.Click += new System.EventHandler(this.btnApptSave_Click);
             // 
             // cmbApptCustomers
             // 
@@ -371,21 +376,25 @@
             // 
             // btnCustomerSave
             // 
+            this.btnCustomerSave.Enabled = false;
             this.btnCustomerSave.Location = new System.Drawing.Point(93, 163);
             this.btnCustomerSave.Name = "btnCustomerSave";
             this.btnCustomerSave.Size = new System.Drawing.Size(75, 23);
             this.btnCustomerSave.TabIndex = 7;
             this.btnCustomerSave.Text = "Save";
             this.btnCustomerSave.UseVisualStyleBackColor = true;
+            this.btnCustomerSave.Click += new System.EventHandler(this.btnCustomerSave_Click);
             // 
             // btnCustomerDelete
             // 
+            this.btnCustomerDelete.Enabled = false;
             this.btnCustomerDelete.Location = new System.Drawing.Point(179, 163);
             this.btnCustomerDelete.Name = "btnCustomerDelete";
             this.btnCustomerDelete.Size = new System.Drawing.Size(75, 23);
             this.btnCustomerDelete.TabIndex = 6;
             this.btnCustomerDelete.Text = "Delete";
             this.btnCustomerDelete.UseVisualStyleBackColor = true;
+            this.btnCustomerDelete.Click += new System.EventHandler(this.btnCustomerDelete_Click);
             // 
             // btnCustomerNew
             // 
@@ -395,6 +404,7 @@
             this.btnCustomerNew.TabIndex = 5;
             this.btnCustomerNew.Text = "New";
             this.btnCustomerNew.UseVisualStyleBackColor = true;
+            this.btnCustomerNew.Click += new System.EventHandler(this.btnCustomerNew_Click);
             // 
             // grpCustomerDetails
             // 
@@ -517,6 +527,16 @@
             this.grpOptions.TabStop = false;
             this.grpOptions.Text = "Options";
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lblApptView);
+            this.panel1.Controls.Add(this.radioApptViewWeek);
+            this.panel1.Controls.Add(this.radioApptViewMonth);
+            this.panel1.Location = new System.Drawing.Point(7, 11);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(114, 64);
+            this.panel1.TabIndex = 6;
+            // 
             // lblApptView
             // 
             this.lblApptView.AutoSize = true;
@@ -525,15 +545,6 @@
             this.lblApptView.Size = new System.Drawing.Size(95, 13);
             this.lblApptView.TabIndex = 0;
             this.lblApptView.Text = "Appointment View:";
-            // 
-            // lblTimeSet
-            // 
-            this.lblTimeSet.AutoSize = true;
-            this.lblTimeSet.Location = new System.Drawing.Point(157, 19);
-            this.lblTimeSet.Name = "lblTimeSet";
-            this.lblTimeSet.Size = new System.Drawing.Size(59, 13);
-            this.lblTimeSet.TabIndex = 1;
-            this.lblTimeSet.Text = "Time View:";
             // 
             // radioApptViewWeek
             // 
@@ -559,17 +570,6 @@
             this.radioApptViewMonth.UseVisualStyleBackColor = true;
             this.radioApptViewMonth.CheckedChanged += new System.EventHandler(this.radioApptViewMonth_CheckedChanged);
             // 
-            // radioTimeViewUTC
-            // 
-            this.radioTimeViewUTC.AutoSize = true;
-            this.radioTimeViewUTC.Location = new System.Drawing.Point(160, 32);
-            this.radioTimeViewUTC.Name = "radioTimeViewUTC";
-            this.radioTimeViewUTC.Size = new System.Drawing.Size(47, 17);
-            this.radioTimeViewUTC.TabIndex = 4;
-            this.radioTimeViewUTC.Text = "UTC";
-            this.radioTimeViewUTC.UseVisualStyleBackColor = true;
-            this.radioTimeViewUTC.CheckedChanged += new System.EventHandler(this.radioTimeViewUTC_CheckedChanged_1);
-            // 
             // radioTimeViewLocal
             // 
             this.radioTimeViewLocal.AutoSize = true;
@@ -583,15 +583,25 @@
             this.radioTimeViewLocal.UseVisualStyleBackColor = true;
             this.radioTimeViewLocal.CheckedChanged += new System.EventHandler(this.radioTimeViewLocal_CheckedChanged_1);
             // 
-            // panel1
+            // radioTimeViewUTC
             // 
-            this.panel1.Controls.Add(this.lblApptView);
-            this.panel1.Controls.Add(this.radioApptViewWeek);
-            this.panel1.Controls.Add(this.radioApptViewMonth);
-            this.panel1.Location = new System.Drawing.Point(7, 11);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(114, 64);
-            this.panel1.TabIndex = 6;
+            this.radioTimeViewUTC.AutoSize = true;
+            this.radioTimeViewUTC.Location = new System.Drawing.Point(160, 32);
+            this.radioTimeViewUTC.Name = "radioTimeViewUTC";
+            this.radioTimeViewUTC.Size = new System.Drawing.Size(47, 17);
+            this.radioTimeViewUTC.TabIndex = 4;
+            this.radioTimeViewUTC.Text = "UTC";
+            this.radioTimeViewUTC.UseVisualStyleBackColor = true;
+            this.radioTimeViewUTC.CheckedChanged += new System.EventHandler(this.radioTimeViewUTC_CheckedChanged_1);
+            // 
+            // lblTimeSet
+            // 
+            this.lblTimeSet.AutoSize = true;
+            this.lblTimeSet.Location = new System.Drawing.Point(157, 19);
+            this.lblTimeSet.Name = "lblTimeSet";
+            this.lblTimeSet.Size = new System.Drawing.Size(59, 13);
+            this.lblTimeSet.TabIndex = 1;
+            this.lblTimeSet.Text = "Time View:";
             // 
             // MainForm
             // 

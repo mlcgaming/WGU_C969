@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WGU_C969.DBItems;
+using WGU_C969.C969Exceptions;
 using MySql.Data.MySqlClient;
 using System.Globalization;
 
@@ -248,6 +249,40 @@ namespace WGU_C969 {
             dataAppointmentView.CurrentCell = dataAppointmentView[0, 0];
             dataAppointmentView.SelectionChanged += OnAppointmentViewSelectionChanged;
         }
+        private bool ValidateAppointmentTimes(Appointment appointment) {
+            try {
+                if(appointment.StartTime.Hour < 8 || appointment.StartTime.Hour > 17) {
+                    throw new InvalidAppointmentDateTimeException("StartTime scheduled outside of business hours");
+                }
+
+                if(appointment.EndTime.Hour < 8 || appointment.EndTime.Hour > 17) {
+                    throw new InvalidAppointmentDateTimeException("EndTime scheduled outside of business hours");
+                }
+
+                if(appointment.StartTime > appointment.EndTime) {
+                    throw new InvalidAppointmentDateTimeException("EndTime must come after StartTime");
+                }
+
+                IEnumerable<AppointmentListing> apptQuery =
+                    from appt in userAppointments
+                    where appt.StartDate.Date == appointment.StartTime.Date || appt.EndDate.Date == appointment.EndTime.Date
+                    select appt;
+
+                foreach(var appt in apptQuery) {
+                    if((appt.StartDate >= appointment.StartTime && appt.StartDate <= appointment.EndTime)
+                        || (appt.EndDate >= appointment.StartTime && appt.EndDate <= appointment.EndTime)
+                        || (appointment.StartTime >= appt.StartDate && appointment.StartTime <= appt.EndDate)
+                        || (appointment.EndTime >= appt.StartDate && appointment.EndTime <= appt.EndDate)) {
+                        throw new InvalidAppointmentDateTimeException($"Appointment overlaps with another appointment [ApptID #{appt.ID}]");
+                    }
+                }
+            }
+            catch (InvalidAppointmentDateTimeException ex) {
+                MessageBox.Show(ex.Message, ex.InnerMessage);
+            }
+
+            return true;
+        }
 
         private void OnLoginFormUserLoggedIn(object sender, LoginFormUserLoggedInEventArgs args) {
             activeUser = args.User;
@@ -292,7 +327,6 @@ namespace WGU_C969 {
                 dtpApptEnd.Value = selectedAppointment.EndTime.ToUniversalTime();
             }
         }
-
         private void OnAppointmentViewOptionChange() {
             DateTime currentDate = DateTime.Now;
             CultureInfo currentCulture = CultureInfo.CurrentCulture;
@@ -321,7 +355,19 @@ namespace WGU_C969 {
         }
 
         private void cmbCustomerId_SelectedIndexChanged(object sender, EventArgs e) {
-            
+            // Load Customer Data based on selected item
+            string idSubstring = cmbApptCustomers.Text.Substring(0, cmbApptCustomers.Text.IndexOf(']') + 1);
+            int customerID = int.Parse(idSubstring);
+
+            Customer customer = allCustomers.Where(cust => cust.CustomerID == customerID).ElementAt(0);
+            Address customerAddress = allAddresses.Where(addr => addr.ID == customer.AddressID).ElementAt(0);
+
+            tboxCustomerName.Text = customer.Name;
+            checkCustomerActive.Checked = customer.IsActive;
+            cmbCustomerAddress.Text = $"[{customerAddress.ID}] {customerAddress.Address1}, {allCities.Where(city => city.ID == customerAddress.CityID).ElementAt(0).Name}, {customerAddress.PostalCode}";
+
+            btnCustomerDelete.Enabled = true;
+            btnCustomerSave.Enabled = true;
         }
         private void dataAppointmentView_CellContentClick(object sender, DataGridViewCellEventArgs e) {
             
@@ -355,6 +401,30 @@ namespace WGU_C969 {
                 radioTimeViewUTC.Checked = false;
                 OnTimeViewOptionChange();
             }
+        }
+
+        private void btnApptDelete_Click(object sender, EventArgs e) {
+
+        }
+
+        private void btnApptSave_Click(object sender, EventArgs e) {
+
+        }
+
+        private void btnApptNew_Click(object sender, EventArgs e) {
+
+        }
+
+        private void btnCustomerDelete_Click(object sender, EventArgs e) {
+
+        }
+
+        private void btnCustomerSave_Click(object sender, EventArgs e) {
+
+        }
+
+        private void btnCustomerNew_Click(object sender, EventArgs e) {
+
         }
     }
 }
