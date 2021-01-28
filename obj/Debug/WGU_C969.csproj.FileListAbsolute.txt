@@ -25,3 +25,5 @@ C:\Users\Max Courneya\source\repos\WGU_C969\bin\Debug\System.Runtime.CompilerSer
 C:\Users\Max Courneya\source\repos\WGU_C969\bin\Debug\MySql.Data.xml
 C:\Users\Max Courneya\source\repos\WGU_C969\obj\Debug\WGU_C969.exe.config
 C:\Users\Max Courneya\source\repos\WGU_C969\obj\Debug\WGU_C969.csproj.CopyComplete
+C:\Users\Max Courneya\source\repos\WGU_C969\obj\Debug\WGU_C969.NewCustomerForm.resources
+C:\Users\Max Courneya\source\repos\WGU_C969\obj\Debug\WGU_C969.NewAppointmentForm.resources

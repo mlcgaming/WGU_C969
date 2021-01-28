@@ -1,5 +1,5 @@
 ﻿namespace WGU_C969 {
-    partial class MainForm {
+    partial class NewAppointmentForm {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -23,10 +23,8 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.dataAppointmentView = new System.Windows.Forms.DataGridView();
-            this.lblAppointementsHeader = new System.Windows.Forms.Label();
             this.grpAppointment = new System.Windows.Forms.GroupBox();
-            this.btnApptNew = new System.Windows.Forms.Button();
+            this.btnSaveForm = new System.Windows.Forms.Button();
             this.grpApptDetails = new System.Windows.Forms.GroupBox();
             this.dtpApptEnd = new System.Windows.Forms.DateTimePicker();
             this.lblApptEnd = new System.Windows.Forms.Label();
@@ -42,83 +40,45 @@
             this.lblApptDescription = new System.Windows.Forms.Label();
             this.tboxApptTitle = new System.Windows.Forms.TextBox();
             this.lblApptTitle = new System.Windows.Forms.Label();
-            this.btnApptDelete = new System.Windows.Forms.Button();
+            this.btnCancelForm = new System.Windows.Forms.Button();
             this.tboxApptId = new System.Windows.Forms.TextBox();
-            this.btnApptSave = new System.Windows.Forms.Button();
+            this.btnResetForm = new System.Windows.Forms.Button();
             this.cmbApptCustomers = new System.Windows.Forms.ComboBox();
             this.cmbApptUsers = new System.Windows.Forms.ComboBox();
             this.lblApptCustomer = new System.Windows.Forms.Label();
             this.lblApptUser = new System.Windows.Forms.Label();
             this.lblApptID = new System.Windows.Forms.Label();
-            this.grpCustomer = new System.Windows.Forms.GroupBox();
-            this.btnCustomerSave = new System.Windows.Forms.Button();
-            this.btnCustomerDelete = new System.Windows.Forms.Button();
-            this.btnCustomerNew = new System.Windows.Forms.Button();
-            this.grpCustomerDetails = new System.Windows.Forms.GroupBox();
-            this.checkCustomerActive = new System.Windows.Forms.CheckBox();
-            this.cmbCustomerAddress = new System.Windows.Forms.ComboBox();
-            this.lblCustomerAddress = new System.Windows.Forms.Label();
-            this.tboxCustomerName = new System.Windows.Forms.TextBox();
-            this.lblCustomerName = new System.Windows.Forms.Label();
-            this.cmbCustomerId = new System.Windows.Forms.ComboBox();
-            this.lblCustomerId = new System.Windows.Forms.Label();
-            this.grpReports = new System.Windows.Forms.GroupBox();
-            this.btnReportGenerate = new System.Windows.Forms.Button();
-            this.cmbReportType = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataAppointmentView)).BeginInit();
             this.grpAppointment.SuspendLayout();
             this.grpApptDetails.SuspendLayout();
-            this.grpCustomer.SuspendLayout();
-            this.grpCustomerDetails.SuspendLayout();
-            this.grpReports.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // dataAppointmentView
-            // 
-            this.dataAppointmentView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataAppointmentView.Location = new System.Drawing.Point(12, 371);
-            this.dataAppointmentView.MultiSelect = false;
-            this.dataAppointmentView.Name = "dataAppointmentView";
-            this.dataAppointmentView.Size = new System.Drawing.Size(578, 150);
-            this.dataAppointmentView.TabIndex = 0;
-            this.dataAppointmentView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataAppointmentView_CellContentClick);
-            // 
-            // lblAppointementsHeader
-            // 
-            this.lblAppointementsHeader.AutoSize = true;
-            this.lblAppointementsHeader.Location = new System.Drawing.Point(12, 355);
-            this.lblAppointementsHeader.Name = "lblAppointementsHeader";
-            this.lblAppointementsHeader.Size = new System.Drawing.Size(71, 13);
-            this.lblAppointementsHeader.TabIndex = 1;
-            this.lblAppointementsHeader.Text = "Appointments";
             // 
             // grpAppointment
             // 
-            this.grpAppointment.Controls.Add(this.btnApptNew);
+            this.grpAppointment.Controls.Add(this.btnSaveForm);
             this.grpAppointment.Controls.Add(this.grpApptDetails);
-            this.grpAppointment.Controls.Add(this.btnApptDelete);
+            this.grpAppointment.Controls.Add(this.btnCancelForm);
             this.grpAppointment.Controls.Add(this.tboxApptId);
-            this.grpAppointment.Controls.Add(this.btnApptSave);
+            this.grpAppointment.Controls.Add(this.btnResetForm);
             this.grpAppointment.Controls.Add(this.cmbApptCustomers);
             this.grpAppointment.Controls.Add(this.cmbApptUsers);
             this.grpAppointment.Controls.Add(this.lblApptCustomer);
             this.grpAppointment.Controls.Add(this.lblApptUser);
             this.grpAppointment.Controls.Add(this.lblApptID);
-            this.grpAppointment.Location = new System.Drawing.Point(281, 12);
+            this.grpAppointment.Location = new System.Drawing.Point(12, 12);
             this.grpAppointment.Name = "grpAppointment";
             this.grpAppointment.Size = new System.Drawing.Size(309, 329);
-            this.grpAppointment.TabIndex = 2;
+            this.grpAppointment.TabIndex = 3;
             this.grpAppointment.TabStop = false;
             this.grpAppointment.Text = "Appointment";
             // 
-            // btnApptNew
+            // btnSaveForm
             // 
-            this.btnApptNew.Location = new System.Drawing.Point(9, 292);
-            this.btnApptNew.Name = "btnApptNew";
-            this.btnApptNew.Size = new System.Drawing.Size(75, 23);
-            this.btnApptNew.TabIndex = 10;
-            this.btnApptNew.Text = "New";
-            this.btnApptNew.UseVisualStyleBackColor = true;
+            this.btnSaveForm.Location = new System.Drawing.Point(9, 292);
+            this.btnSaveForm.Name = "btnSaveForm";
+            this.btnSaveForm.Size = new System.Drawing.Size(75, 23);
+            this.btnSaveForm.TabIndex = 10;
+            this.btnSaveForm.Text = "Save";
+            this.btnSaveForm.UseVisualStyleBackColor = true;
             // 
             // grpApptDetails
             // 
@@ -271,14 +231,14 @@
             this.lblApptTitle.TabIndex = 0;
             this.lblApptTitle.Text = "Title:";
             // 
-            // btnApptDelete
+            // btnCancelForm
             // 
-            this.btnApptDelete.Location = new System.Drawing.Point(228, 292);
-            this.btnApptDelete.Name = "btnApptDelete";
-            this.btnApptDelete.Size = new System.Drawing.Size(75, 23);
-            this.btnApptDelete.TabIndex = 9;
-            this.btnApptDelete.Text = "Delete";
-            this.btnApptDelete.UseVisualStyleBackColor = true;
+            this.btnCancelForm.Location = new System.Drawing.Point(228, 292);
+            this.btnCancelForm.Name = "btnCancelForm";
+            this.btnCancelForm.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelForm.TabIndex = 9;
+            this.btnCancelForm.Text = "Cancel";
+            this.btnCancelForm.UseVisualStyleBackColor = true;
             // 
             // tboxApptId
             // 
@@ -288,14 +248,14 @@
             this.tboxApptId.Size = new System.Drawing.Size(47, 20);
             this.tboxApptId.TabIndex = 5;
             // 
-            // btnApptSave
+            // btnResetForm
             // 
-            this.btnApptSave.Location = new System.Drawing.Point(147, 292);
-            this.btnApptSave.Name = "btnApptSave";
-            this.btnApptSave.Size = new System.Drawing.Size(75, 23);
-            this.btnApptSave.TabIndex = 8;
-            this.btnApptSave.Text = "Save";
-            this.btnApptSave.UseVisualStyleBackColor = true;
+            this.btnResetForm.Location = new System.Drawing.Point(147, 292);
+            this.btnResetForm.Name = "btnResetForm";
+            this.btnResetForm.Size = new System.Drawing.Size(75, 23);
+            this.btnResetForm.TabIndex = 8;
+            this.btnResetForm.Text = "Reset";
+            this.btnResetForm.UseVisualStyleBackColor = true;
             // 
             // cmbApptCustomers
             // 
@@ -342,197 +302,26 @@
             this.lblApptID.TabIndex = 0;
             this.lblApptID.Text = "ID:";
             // 
-            // grpCustomer
-            // 
-            this.grpCustomer.Controls.Add(this.btnCustomerSave);
-            this.grpCustomer.Controls.Add(this.btnCustomerDelete);
-            this.grpCustomer.Controls.Add(this.btnCustomerNew);
-            this.grpCustomer.Controls.Add(this.grpCustomerDetails);
-            this.grpCustomer.Controls.Add(this.cmbCustomerId);
-            this.grpCustomer.Controls.Add(this.lblCustomerId);
-            this.grpCustomer.Location = new System.Drawing.Point(15, 12);
-            this.grpCustomer.Name = "grpCustomer";
-            this.grpCustomer.Size = new System.Drawing.Size(260, 194);
-            this.grpCustomer.TabIndex = 3;
-            this.grpCustomer.TabStop = false;
-            this.grpCustomer.Text = "Customer";
-            // 
-            // btnCustomerSave
-            // 
-            this.btnCustomerSave.Location = new System.Drawing.Point(93, 163);
-            this.btnCustomerSave.Name = "btnCustomerSave";
-            this.btnCustomerSave.Size = new System.Drawing.Size(75, 23);
-            this.btnCustomerSave.TabIndex = 7;
-            this.btnCustomerSave.Text = "Save";
-            this.btnCustomerSave.UseVisualStyleBackColor = true;
-            // 
-            // btnCustomerDelete
-            // 
-            this.btnCustomerDelete.Location = new System.Drawing.Point(179, 163);
-            this.btnCustomerDelete.Name = "btnCustomerDelete";
-            this.btnCustomerDelete.Size = new System.Drawing.Size(75, 23);
-            this.btnCustomerDelete.TabIndex = 6;
-            this.btnCustomerDelete.Text = "Delete";
-            this.btnCustomerDelete.UseVisualStyleBackColor = true;
-            // 
-            // btnCustomerNew
-            // 
-            this.btnCustomerNew.Location = new System.Drawing.Point(6, 163);
-            this.btnCustomerNew.Name = "btnCustomerNew";
-            this.btnCustomerNew.Size = new System.Drawing.Size(75, 23);
-            this.btnCustomerNew.TabIndex = 5;
-            this.btnCustomerNew.Text = "New";
-            this.btnCustomerNew.UseVisualStyleBackColor = true;
-            // 
-            // grpCustomerDetails
-            // 
-            this.grpCustomerDetails.Controls.Add(this.checkCustomerActive);
-            this.grpCustomerDetails.Controls.Add(this.cmbCustomerAddress);
-            this.grpCustomerDetails.Controls.Add(this.lblCustomerAddress);
-            this.grpCustomerDetails.Controls.Add(this.tboxCustomerName);
-            this.grpCustomerDetails.Controls.Add(this.lblCustomerName);
-            this.grpCustomerDetails.Location = new System.Drawing.Point(6, 53);
-            this.grpCustomerDetails.Name = "grpCustomerDetails";
-            this.grpCustomerDetails.Size = new System.Drawing.Size(248, 104);
-            this.grpCustomerDetails.TabIndex = 4;
-            this.grpCustomerDetails.TabStop = false;
-            this.grpCustomerDetails.Text = "Details (Bold are Required)";
-            // 
-            // checkCustomerActive
-            // 
-            this.checkCustomerActive.AutoSize = true;
-            this.checkCustomerActive.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkCustomerActive.Location = new System.Drawing.Point(8, 76);
-            this.checkCustomerActive.Name = "checkCustomerActive";
-            this.checkCustomerActive.Size = new System.Drawing.Size(113, 17);
-            this.checkCustomerActive.TabIndex = 4;
-            this.checkCustomerActive.Text = "Active Account";
-            this.checkCustomerActive.UseVisualStyleBackColor = true;
-            // 
-            // cmbCustomerAddress
-            // 
-            this.cmbCustomerAddress.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCustomerAddress.FormattingEnabled = true;
-            this.cmbCustomerAddress.Location = new System.Drawing.Point(59, 45);
-            this.cmbCustomerAddress.Name = "cmbCustomerAddress";
-            this.cmbCustomerAddress.Size = new System.Drawing.Size(183, 21);
-            this.cmbCustomerAddress.TabIndex = 3;
-            // 
-            // lblCustomerAddress
-            // 
-            this.lblCustomerAddress.AutoSize = true;
-            this.lblCustomerAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCustomerAddress.Location = new System.Drawing.Point(5, 48);
-            this.lblCustomerAddress.Name = "lblCustomerAddress";
-            this.lblCustomerAddress.Size = new System.Drawing.Size(56, 13);
-            this.lblCustomerAddress.TabIndex = 2;
-            this.lblCustomerAddress.Text = "Address:";
-            // 
-            // tboxCustomerName
-            // 
-            this.tboxCustomerName.Location = new System.Drawing.Point(50, 21);
-            this.tboxCustomerName.Name = "tboxCustomerName";
-            this.tboxCustomerName.Size = new System.Drawing.Size(192, 20);
-            this.tboxCustomerName.TabIndex = 1;
-            // 
-            // lblCustomerName
-            // 
-            this.lblCustomerName.AutoSize = true;
-            this.lblCustomerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCustomerName.Location = new System.Drawing.Point(6, 24);
-            this.lblCustomerName.Name = "lblCustomerName";
-            this.lblCustomerName.Size = new System.Drawing.Size(43, 13);
-            this.lblCustomerName.TabIndex = 0;
-            this.lblCustomerName.Text = "Name:";
-            // 
-            // cmbCustomerId
-            // 
-            this.cmbCustomerId.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCustomerId.FormattingEnabled = true;
-            this.cmbCustomerId.Location = new System.Drawing.Point(70, 19);
-            this.cmbCustomerId.Name = "cmbCustomerId";
-            this.cmbCustomerId.Size = new System.Drawing.Size(179, 21);
-            this.cmbCustomerId.TabIndex = 1;
-            this.cmbCustomerId.SelectedIndexChanged += new System.EventHandler(this.cmbCustomerId_SelectedIndexChanged);
-            // 
-            // lblCustomerId
-            // 
-            this.lblCustomerId.AutoSize = true;
-            this.lblCustomerId.Location = new System.Drawing.Point(10, 22);
-            this.lblCustomerId.Name = "lblCustomerId";
-            this.lblCustomerId.Size = new System.Drawing.Size(54, 13);
-            this.lblCustomerId.TabIndex = 0;
-            this.lblCustomerId.Text = "Customer:";
-            // 
-            // grpReports
-            // 
-            this.grpReports.Controls.Add(this.btnReportGenerate);
-            this.grpReports.Controls.Add(this.cmbReportType);
-            this.grpReports.Location = new System.Drawing.Point(15, 212);
-            this.grpReports.Name = "grpReports";
-            this.grpReports.Size = new System.Drawing.Size(260, 51);
-            this.grpReports.TabIndex = 4;
-            this.grpReports.TabStop = false;
-            this.grpReports.Text = "Reports";
-            // 
-            // btnReportGenerate
-            // 
-            this.btnReportGenerate.Location = new System.Drawing.Point(179, 17);
-            this.btnReportGenerate.Name = "btnReportGenerate";
-            this.btnReportGenerate.Size = new System.Drawing.Size(75, 23);
-            this.btnReportGenerate.TabIndex = 11;
-            this.btnReportGenerate.Text = "Generate";
-            this.btnReportGenerate.UseVisualStyleBackColor = true;
-            // 
-            // cmbReportType
-            // 
-            this.cmbReportType.FormattingEnabled = true;
-            this.cmbReportType.Location = new System.Drawing.Point(6, 19);
-            this.cmbReportType.Name = "cmbReportType";
-            this.cmbReportType.Size = new System.Drawing.Size(162, 21);
-            this.cmbReportType.TabIndex = 0;
-            // 
-            // MainForm
+            // NewAppointmentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(601, 533);
-            this.Controls.Add(this.grpReports);
-            this.Controls.Add(this.grpCustomer);
+            this.ClientSize = new System.Drawing.Size(333, 353);
             this.Controls.Add(this.grpAppointment);
-            this.Controls.Add(this.lblAppointementsHeader);
-            this.Controls.Add(this.dataAppointmentView);
-            this.Name = "MainForm";
-            this.Text = "Appointment Scheduler";
-            this.Load += new System.EventHandler(this.MainForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataAppointmentView)).EndInit();
+            this.Name = "NewAppointmentForm";
+            this.Text = "NewAppointmentForm";
             this.grpAppointment.ResumeLayout(false);
             this.grpAppointment.PerformLayout();
             this.grpApptDetails.ResumeLayout(false);
             this.grpApptDetails.PerformLayout();
-            this.grpCustomer.ResumeLayout(false);
-            this.grpCustomer.PerformLayout();
-            this.grpCustomerDetails.ResumeLayout(false);
-            this.grpCustomerDetails.PerformLayout();
-            this.grpReports.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataAppointmentView;
-        private System.Windows.Forms.Label lblAppointementsHeader;
         private System.Windows.Forms.GroupBox grpAppointment;
-        private System.Windows.Forms.TextBox tboxApptId;
-        private System.Windows.Forms.ComboBox cmbApptCustomers;
-        private System.Windows.Forms.ComboBox cmbApptUsers;
-        private System.Windows.Forms.Label lblApptCustomer;
-        private System.Windows.Forms.Label lblApptUser;
-        private System.Windows.Forms.Label lblApptID;
-        private System.Windows.Forms.GroupBox grpCustomer;
-        private System.Windows.Forms.Button btnApptNew;
+        private System.Windows.Forms.Button btnSaveForm;
         private System.Windows.Forms.GroupBox grpApptDetails;
         private System.Windows.Forms.DateTimePicker dtpApptEnd;
         private System.Windows.Forms.Label lblApptEnd;
@@ -548,22 +337,13 @@
         private System.Windows.Forms.Label lblApptDescription;
         private System.Windows.Forms.TextBox tboxApptTitle;
         private System.Windows.Forms.Label lblApptTitle;
-        private System.Windows.Forms.Button btnApptDelete;
-        private System.Windows.Forms.Button btnApptSave;
-        private System.Windows.Forms.Button btnCustomerSave;
-        private System.Windows.Forms.Button btnCustomerDelete;
-        private System.Windows.Forms.Button btnCustomerNew;
-        private System.Windows.Forms.GroupBox grpCustomerDetails;
-        private System.Windows.Forms.CheckBox checkCustomerActive;
-        private System.Windows.Forms.ComboBox cmbCustomerAddress;
-        private System.Windows.Forms.Label lblCustomerAddress;
-        private System.Windows.Forms.TextBox tboxCustomerName;
-        private System.Windows.Forms.Label lblCustomerName;
-        private System.Windows.Forms.ComboBox cmbCustomerId;
-        private System.Windows.Forms.Label lblCustomerId;
-        private System.Windows.Forms.GroupBox grpReports;
-        private System.Windows.Forms.Button btnReportGenerate;
-        private System.Windows.Forms.ComboBox cmbReportType;
+        private System.Windows.Forms.Button btnCancelForm;
+        private System.Windows.Forms.TextBox tboxApptId;
+        private System.Windows.Forms.Button btnResetForm;
+        private System.Windows.Forms.ComboBox cmbApptCustomers;
+        private System.Windows.Forms.ComboBox cmbApptUsers;
+        private System.Windows.Forms.Label lblApptCustomer;
+        private System.Windows.Forms.Label lblApptUser;
+        private System.Windows.Forms.Label lblApptID;
     }
 }
-
