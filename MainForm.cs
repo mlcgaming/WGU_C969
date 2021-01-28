@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WGU_C969.DBItems;
 using MySql.Data.MySqlClient;
+using System.Globalization;
 
 namespace WGU_C969 {
     public partial class MainForm : Form {
@@ -22,6 +23,9 @@ namespace WGU_C969 {
         private List<Country> allCountries;
 
         private List<AppointmentListing> userAppointments;
+
+        private DateTime earliestAppointmentViewDate;
+        private DateTime latestAppointmentViewDate;
 
         public MainForm() {
             InitializeComponent();
@@ -37,6 +41,9 @@ namespace WGU_C969 {
             allCities = new List<City>();
             allCountries = new List<Country>();
             userAppointments = new List<AppointmentListing>();
+
+            earliestAppointmentViewDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            latestAppointmentViewDate = earliestAppointmentViewDate.AddMonths(1).AddTicks(-1);
 
             LoginForm loginForm = new LoginForm();
 
@@ -201,6 +208,46 @@ namespace WGU_C969 {
             cmbApptType.Items.Add("Presentation");
             cmbApptType.Items.Add("Scrum");
         }
+        private void ReloadAppointmentCalander() {
+            if(userAppointments.Count > 0) {
+                userAppointments.Clear();
+                dataAppointmentView.DataSource = null;
+                dataAppointmentView.Rows.Clear();
+            }
+
+            IEnumerable<Appointment> filteredAppointments =
+                    from appt in allAppointments
+                    where appt.UserID == activeUser.ID
+                    select appt;
+
+            foreach(var appt in filteredAppointments) {
+                if(appt.StartTime >= earliestAppointmentViewDate &&
+                    appt.EndTime <= latestAppointmentViewDate) {
+                    // It is cleaner and more straightforward to use these lambdas with LINQ to select the items we need, rather than build a wholly separate function for these
+                    string userName = allUsers.Where(name => name.ID == appt.UserID).Select(name => name.Username).ElementAt(0);
+                    string customerName = allCustomers.Where(name => name.CustomerID == appt.CustomerID).Select(name => name.Name).ElementAt(0);
+
+                    DateTime apptStart = appt.StartTime;
+                    DateTime apptEnd = appt.EndTime;
+
+                    if(radioTimeViewLocal.Checked == true) {
+                        apptStart = apptStart.ToLocalTime();
+                        apptEnd = apptEnd.ToLocalTime();
+                    }
+                    else {
+                        apptStart = apptStart.ToUniversalTime();
+                        apptEnd = apptEnd.ToUniversalTime();
+                    }
+
+                    AppointmentListing listing = new AppointmentListing(appt.ID, userName, customerName, appt.Title, appt.Description, appt.Type, apptStart, apptEnd);
+                    userAppointments.Add(listing);
+                }
+            }
+
+            dataAppointmentView.DataSource = userAppointments;
+            dataAppointmentView.CurrentCell = dataAppointmentView[0, 0];
+            dataAppointmentView.SelectionChanged += OnAppointmentViewSelectionChanged;
+        }
 
         private void OnLoginFormUserLoggedIn(object sender, LoginFormUserLoggedInEventArgs args) {
             activeUser = args.User;
@@ -211,33 +258,11 @@ namespace WGU_C969 {
             }
             else {
                 LoadDataFromDatabase();
-
-                IEnumerable<Appointment> filteredAppointments =
-                    from appt in allAppointments
-                    where appt.UserID == activeUser.ID
-                    select appt;
-
-                foreach(var appt in filteredAppointments) {
-
-                    // It is cleaner and more straightforward to use these lambdas with LINQ to select the items we need, rather than build a wholly separate function for this, given it will only run once during login.
-                    string userName = allUsers.Where(name => name.ID == appt.UserID).Select(name => name.Username).ElementAt(0);
-                    string customerName = allCustomers.Where(name => name.CustomerID == appt.CustomerID).Select(name => name.Name).ElementAt(0);
-
-                    AppointmentListing listing = new AppointmentListing(appt.ID, userName, customerName, appt.Title, appt.Description, appt.Type, appt.StartTime, appt.EndTime);
-                    userAppointments.Add(listing);
-                }
-
-                dataAppointmentView.DataSource = userAppointments;
-
+                ReloadAppointmentCalander();
                 ReloadComboboxes();
             }
         }
-
-        private void cmbCustomerId_SelectedIndexChanged(object sender, EventArgs e) {
-            
-        }
-
-        private void dataAppointmentView_CellContentClick(object sender, DataGridViewCellEventArgs e) {
+        private void OnAppointmentViewSelectionChanged(object sender, EventArgs e) {
             int apptID = (int)dataAppointmentView[0, dataAppointmentView.CurrentCell.RowIndex].Value;
 
             // The following three lines all use lambdas with LINQ to quickly pull the element we need from the lists, while remaining human readable
@@ -246,10 +271,90 @@ namespace WGU_C969 {
             UserAccount appointmentUser = allUsers.Where(user => user.ID == selectedAppointment.UserID).ElementAt(0);
             Customer appointmentCustomer = allCustomers.Where(customer => customer.CustomerID == selectedAppointment.CustomerID).ElementAt(0);
 
-            
+            string userEntry = $"[{appointmentUser.ID}] {appointmentUser.Username}";
+            string customerEntry = $"[{appointmentCustomer.CustomerID}] {appointmentCustomer.Name}";
 
             tboxApptId.Text = selectedAppointment.ID.ToString();
+            cmbApptUsers.Text = userEntry;
+            cmbApptCustomers.Text = customerEntry;
 
+            tboxApptTitle.Text = selectedAppointment.Title;
+            tboxApptDescription.Text = selectedAppointment.Description;
+            tboxApptLocation.Text = selectedAppointment.Location;
+            tboxApptContact.Text = selectedAppointment.Contact;
+
+            if(radioTimeViewLocal.Checked == true) {
+                dtpApptStart.Value = selectedAppointment.StartTime.ToLocalTime();
+                dtpApptEnd.Value = selectedAppointment.EndTime.ToLocalTime();
+            }
+            else {
+                dtpApptStart.Value = selectedAppointment.StartTime.ToUniversalTime();
+                dtpApptEnd.Value = selectedAppointment.EndTime.ToUniversalTime();
+            }
+        }
+
+        private void OnAppointmentViewOptionChange() {
+            DateTime currentDate = DateTime.Now;
+            CultureInfo currentCulture = CultureInfo.CurrentCulture;
+
+            dataAppointmentView.SelectionChanged -= OnAppointmentViewSelectionChanged;
+
+            if(radioApptViewMonth.Checked == true) {
+                // Set Appointment Window to range from 1st of current month to end of current month
+                earliestAppointmentViewDate = new DateTime(currentDate.Year, currentDate.Month, 1);
+                latestAppointmentViewDate = earliestAppointmentViewDate.AddMonths(1).AddTicks(-1);
+            }
+            else {
+                // Set Appointment Window to range from beginning to end of current week
+                var diff = currentDate.DayOfWeek - currentCulture.DateTimeFormat.FirstDayOfWeek;
+                if(diff < 0) { diff += 7; }
+
+                earliestAppointmentViewDate = currentDate.AddDays(-diff).Date;
+                latestAppointmentViewDate = earliestAppointmentViewDate.AddDays(6);
+            }
+
+            lblAppointementsHeader.Text = $"Upcoming Appointments ({earliestAppointmentViewDate} to {latestAppointmentViewDate})";
+            ReloadAppointmentCalander();
+        }
+        private void OnTimeViewOptionChange() {
+            OnAppointmentViewOptionChange();
+        }
+
+        private void cmbCustomerId_SelectedIndexChanged(object sender, EventArgs e) {
+            
+        }
+        private void dataAppointmentView_CellContentClick(object sender, DataGridViewCellEventArgs e) {
+            
+        }
+        private void radioApptViewWeek_CheckedChanged(object sender, EventArgs e) {
+            if(radioApptViewWeek.Checked == true) {
+                radioApptViewMonth.Checked = false;
+                OnAppointmentViewOptionChange();
+            }
+        }
+        private void radioApptViewMonth_CheckedChanged(object sender, EventArgs e) {
+            if(radioApptViewMonth.Checked == true) {
+                radioApptViewWeek.Checked = false;
+                OnAppointmentViewOptionChange();
+            }
+        }
+        private void radioTimeViewUTC_CheckedChanged(object sender, EventArgs e) {
+            // NULL
+        }
+        private void radioTimeViewLocal_CheckedChanged(object sender, EventArgs e) {
+            // NULL
+        }
+        private void radioTimeViewUTC_CheckedChanged_1(object sender, EventArgs e) {
+            if(radioTimeViewUTC.Checked == true) {
+                radioTimeViewLocal.Checked = false;
+                OnTimeViewOptionChange();
+            }
+        }
+        private void radioTimeViewLocal_CheckedChanged_1(object sender, EventArgs e) {
+            if(radioTimeViewLocal.Checked == true) {
+                radioTimeViewUTC.Checked = false;
+                OnTimeViewOptionChange();
+            }
         }
     }
 }

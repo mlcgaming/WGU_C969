@@ -10,6 +10,12 @@ namespace WGU_C969 {
 
         public LoginForm() {
             InitializeComponent();
+
+            lblFormTitle.Text = Settings.CurrentLabels[Settings.ID_LABEL_LOGIN_FORM_TITLE];
+            lblUsername.Text = Settings.CurrentLabels[Settings.ID_LABEL_LOGIN_FORM_LOGIN_BUTTON];
+            lblPassword.Text = Settings.CurrentLabels[Settings.ID_LABEL_LOGIN_FORM_PASSWORD];
+            btnCancel.Text = Settings.CurrentLabels[Settings.ID_LABEL_LOGIN_FORM_CANCEL_BUTTON];
+            btnLogin.Text = Settings.CurrentLabels[Settings.ID_LABEL_LOGIN_FORM_LOGIN_BUTTON];
         }
 
         private void ValidateForm() {
@@ -58,7 +64,7 @@ namespace WGU_C969 {
             }
             catch (MySqlException ex) {
                 EventLogger.LogConnectionIssue();
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(Settings.CurrentLabels[Settings.ID_LABEL_LOGIN_FORM_EXCEPTION_MYSQL]);
             }
             finally {
                 connection.Close();
@@ -72,7 +78,7 @@ namespace WGU_C969 {
                 }
                 else {
                     EventLogger.LogUnsuccessfulLogin(tboxUsername.Text);
-                    throw new LoginInvalidException("Invalid Username or Password");
+                    throw new LoginInvalidException(Settings.CurrentLabels[Settings.ID_LABEL_LOGIN_FORM_EXCEPTION_INVALID_LOGIN]);
                 }
             }
             catch(LoginInvalidException ex) {

@@ -65,18 +65,30 @@
             this.grpReports = new System.Windows.Forms.GroupBox();
             this.btnReportGenerate = new System.Windows.Forms.Button();
             this.cmbReportType = new System.Windows.Forms.ComboBox();
+            this.grpOptions = new System.Windows.Forms.GroupBox();
+            this.lblApptView = new System.Windows.Forms.Label();
+            this.lblTimeSet = new System.Windows.Forms.Label();
+            this.radioApptViewWeek = new System.Windows.Forms.RadioButton();
+            this.radioApptViewMonth = new System.Windows.Forms.RadioButton();
+            this.radioTimeViewUTC = new System.Windows.Forms.RadioButton();
+            this.radioTimeViewLocal = new System.Windows.Forms.RadioButton();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dataAppointmentView)).BeginInit();
             this.grpAppointment.SuspendLayout();
             this.grpApptDetails.SuspendLayout();
             this.grpCustomer.SuspendLayout();
             this.grpCustomerDetails.SuspendLayout();
             this.grpReports.SuspendLayout();
+            this.grpOptions.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataAppointmentView
             // 
+            this.dataAppointmentView.AllowUserToAddRows = false;
+            this.dataAppointmentView.AllowUserToDeleteRows = false;
             this.dataAppointmentView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataAppointmentView.Location = new System.Drawing.Point(12, 371);
+            this.dataAppointmentView.Location = new System.Drawing.Point(12, 376);
             this.dataAppointmentView.MultiSelect = false;
             this.dataAppointmentView.Name = "dataAppointmentView";
             this.dataAppointmentView.Size = new System.Drawing.Size(578, 150);
@@ -86,7 +98,7 @@
             // lblAppointementsHeader
             // 
             this.lblAppointementsHeader.AutoSize = true;
-            this.lblAppointementsHeader.Location = new System.Drawing.Point(12, 355);
+            this.lblAppointementsHeader.Location = new System.Drawing.Point(12, 360);
             this.lblAppointementsHeader.Name = "lblAppointementsHeader";
             this.lblAppointementsHeader.Size = new System.Drawing.Size(71, 13);
             this.lblAppointementsHeader.TabIndex = 1;
@@ -106,14 +118,14 @@
             this.grpAppointment.Controls.Add(this.lblApptID);
             this.grpAppointment.Location = new System.Drawing.Point(281, 12);
             this.grpAppointment.Name = "grpAppointment";
-            this.grpAppointment.Size = new System.Drawing.Size(309, 329);
+            this.grpAppointment.Size = new System.Drawing.Size(309, 337);
             this.grpAppointment.TabIndex = 2;
             this.grpAppointment.TabStop = false;
             this.grpAppointment.Text = "Appointment";
             // 
             // btnApptNew
             // 
-            this.btnApptNew.Location = new System.Drawing.Point(9, 292);
+            this.btnApptNew.Location = new System.Drawing.Point(9, 301);
             this.btnApptNew.Name = "btnApptNew";
             this.btnApptNew.Size = new System.Drawing.Size(75, 23);
             this.btnApptNew.TabIndex = 10;
@@ -273,7 +285,7 @@
             // 
             // btnApptDelete
             // 
-            this.btnApptDelete.Location = new System.Drawing.Point(228, 292);
+            this.btnApptDelete.Location = new System.Drawing.Point(228, 301);
             this.btnApptDelete.Name = "btnApptDelete";
             this.btnApptDelete.Size = new System.Drawing.Size(75, 23);
             this.btnApptDelete.TabIndex = 9;
@@ -290,7 +302,7 @@
             // 
             // btnApptSave
             // 
-            this.btnApptSave.Location = new System.Drawing.Point(147, 292);
+            this.btnApptSave.Location = new System.Drawing.Point(147, 301);
             this.btnApptSave.Name = "btnApptSave";
             this.btnApptSave.Size = new System.Drawing.Size(75, 23);
             this.btnApptSave.TabIndex = 8;
@@ -492,11 +504,101 @@
             this.cmbReportType.Size = new System.Drawing.Size(162, 21);
             this.cmbReportType.TabIndex = 0;
             // 
+            // grpOptions
+            // 
+            this.grpOptions.Controls.Add(this.panel1);
+            this.grpOptions.Controls.Add(this.radioTimeViewLocal);
+            this.grpOptions.Controls.Add(this.radioTimeViewUTC);
+            this.grpOptions.Controls.Add(this.lblTimeSet);
+            this.grpOptions.Location = new System.Drawing.Point(15, 269);
+            this.grpOptions.Name = "grpOptions";
+            this.grpOptions.Size = new System.Drawing.Size(260, 80);
+            this.grpOptions.TabIndex = 5;
+            this.grpOptions.TabStop = false;
+            this.grpOptions.Text = "Options";
+            // 
+            // lblApptView
+            // 
+            this.lblApptView.AutoSize = true;
+            this.lblApptView.Location = new System.Drawing.Point(3, 8);
+            this.lblApptView.Name = "lblApptView";
+            this.lblApptView.Size = new System.Drawing.Size(95, 13);
+            this.lblApptView.TabIndex = 0;
+            this.lblApptView.Text = "Appointment View:";
+            // 
+            // lblTimeSet
+            // 
+            this.lblTimeSet.AutoSize = true;
+            this.lblTimeSet.Location = new System.Drawing.Point(157, 19);
+            this.lblTimeSet.Name = "lblTimeSet";
+            this.lblTimeSet.Size = new System.Drawing.Size(59, 13);
+            this.lblTimeSet.TabIndex = 1;
+            this.lblTimeSet.Text = "Time View:";
+            // 
+            // radioApptViewWeek
+            // 
+            this.radioApptViewWeek.AutoSize = true;
+            this.radioApptViewWeek.Location = new System.Drawing.Point(9, 24);
+            this.radioApptViewWeek.Name = "radioApptViewWeek";
+            this.radioApptViewWeek.Size = new System.Drawing.Size(69, 17);
+            this.radioApptViewWeek.TabIndex = 2;
+            this.radioApptViewWeek.Text = "By Week";
+            this.radioApptViewWeek.UseVisualStyleBackColor = true;
+            this.radioApptViewWeek.CheckedChanged += new System.EventHandler(this.radioApptViewWeek_CheckedChanged);
+            // 
+            // radioApptViewMonth
+            // 
+            this.radioApptViewMonth.AutoSize = true;
+            this.radioApptViewMonth.Checked = true;
+            this.radioApptViewMonth.Location = new System.Drawing.Point(9, 41);
+            this.radioApptViewMonth.Name = "radioApptViewMonth";
+            this.radioApptViewMonth.Size = new System.Drawing.Size(70, 17);
+            this.radioApptViewMonth.TabIndex = 3;
+            this.radioApptViewMonth.TabStop = true;
+            this.radioApptViewMonth.Text = "By Month";
+            this.radioApptViewMonth.UseVisualStyleBackColor = true;
+            this.radioApptViewMonth.CheckedChanged += new System.EventHandler(this.radioApptViewMonth_CheckedChanged);
+            // 
+            // radioTimeViewUTC
+            // 
+            this.radioTimeViewUTC.AutoSize = true;
+            this.radioTimeViewUTC.Location = new System.Drawing.Point(160, 32);
+            this.radioTimeViewUTC.Name = "radioTimeViewUTC";
+            this.radioTimeViewUTC.Size = new System.Drawing.Size(47, 17);
+            this.radioTimeViewUTC.TabIndex = 4;
+            this.radioTimeViewUTC.Text = "UTC";
+            this.radioTimeViewUTC.UseVisualStyleBackColor = true;
+            this.radioTimeViewUTC.CheckedChanged += new System.EventHandler(this.radioTimeViewUTC_CheckedChanged_1);
+            // 
+            // radioTimeViewLocal
+            // 
+            this.radioTimeViewLocal.AutoSize = true;
+            this.radioTimeViewLocal.Checked = true;
+            this.radioTimeViewLocal.Location = new System.Drawing.Point(160, 50);
+            this.radioTimeViewLocal.Name = "radioTimeViewLocal";
+            this.radioTimeViewLocal.Size = new System.Drawing.Size(77, 17);
+            this.radioTimeViewLocal.TabIndex = 5;
+            this.radioTimeViewLocal.TabStop = true;
+            this.radioTimeViewLocal.Text = "Local Time";
+            this.radioTimeViewLocal.UseVisualStyleBackColor = true;
+            this.radioTimeViewLocal.CheckedChanged += new System.EventHandler(this.radioTimeViewLocal_CheckedChanged_1);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lblApptView);
+            this.panel1.Controls.Add(this.radioApptViewWeek);
+            this.panel1.Controls.Add(this.radioApptViewMonth);
+            this.panel1.Location = new System.Drawing.Point(7, 11);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(114, 64);
+            this.panel1.TabIndex = 6;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(601, 533);
+            this.ClientSize = new System.Drawing.Size(601, 534);
+            this.Controls.Add(this.grpOptions);
             this.Controls.Add(this.grpReports);
             this.Controls.Add(this.grpCustomer);
             this.Controls.Add(this.grpAppointment);
@@ -515,6 +617,10 @@
             this.grpCustomerDetails.ResumeLayout(false);
             this.grpCustomerDetails.PerformLayout();
             this.grpReports.ResumeLayout(false);
+            this.grpOptions.ResumeLayout(false);
+            this.grpOptions.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -564,6 +670,14 @@
         private System.Windows.Forms.GroupBox grpReports;
         private System.Windows.Forms.Button btnReportGenerate;
         private System.Windows.Forms.ComboBox cmbReportType;
+        private System.Windows.Forms.GroupBox grpOptions;
+        private System.Windows.Forms.RadioButton radioApptViewMonth;
+        private System.Windows.Forms.RadioButton radioApptViewWeek;
+        private System.Windows.Forms.Label lblTimeSet;
+        private System.Windows.Forms.Label lblApptView;
+        private System.Windows.Forms.RadioButton radioTimeViewUTC;
+        private System.Windows.Forms.RadioButton radioTimeViewLocal;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 
