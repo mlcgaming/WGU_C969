@@ -40,4 +40,3 @@ C:\Users\MCourneya\Source\Repos\mlcgaming\WGU_C969\bin\Debug\WGU_C969.exe.config
 C:\Users\MCourneya\Source\Repos\mlcgaming\WGU_C969\bin\Debug\WGU_C969.exe
 C:\Users\MCourneya\Source\Repos\mlcgaming\WGU_C969\bin\Debug\WGU_C969.pdb
 C:\Users\MCourneya\Source\Repos\mlcgaming\WGU_C969\obj\Debug\WGU_C969.csproj.CopyComplete
-C:\Users\Max Courneya\source\repos\WGU_C969\obj\Debug\WGU_C969.csprojAssemblyReference.cache

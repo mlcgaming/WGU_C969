@@ -43,6 +43,7 @@
             this.btnClearForm.TabIndex = 7;
             this.btnClearForm.Text = "Reset";
             this.btnClearForm.UseVisualStyleBackColor = true;
+            this.btnClearForm.Click += new System.EventHandler(this.btnClearForm_Click);
             // 
             // btnCancelForm
             // 
@@ -52,6 +53,7 @@
             this.btnCancelForm.TabIndex = 6;
             this.btnCancelForm.Text = "Cancel";
             this.btnCancelForm.UseVisualStyleBackColor = true;
+            this.btnCancelForm.Click += new System.EventHandler(this.btnCancelForm_Click);
             // 
             // btnSaveForm
             // 
@@ -61,6 +63,7 @@
             this.btnSaveForm.TabIndex = 5;
             this.btnSaveForm.Text = "Save";
             this.btnSaveForm.UseVisualStyleBackColor = true;
+            this.btnSaveForm.Click += new System.EventHandler(this.btnSaveForm_Click);
             // 
             // checkCustomerActive
             // 
@@ -142,7 +145,7 @@
             this.Controls.Add(this.tboxCustomerName);
             this.Controls.Add(this.lblCustomerName);
             this.Name = "NewCustomerForm";
-            this.Text = "NewCustomerForm";
+            this.Text = "New Customer";
             this.ResumeLayout(false);
             this.PerformLayout();
 

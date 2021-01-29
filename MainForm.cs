@@ -30,6 +30,8 @@ namespace WGU_C969 {
 
         public MainForm() {
             InitializeComponent();
+
+            cmbReportType.SelectedIndex = 0;
         }
 
         private void MainForm_Load(object sender, EventArgs e) {
@@ -334,37 +336,39 @@ namespace WGU_C969 {
             }
         }
         private void OnAppointmentViewSelectionChanged(object sender, EventArgs e) {
-            int apptID = (int)dataAppointmentView[0, dataAppointmentView.CurrentCell.RowIndex].Value;
+            if(dataAppointmentView.SelectedCells.Count > 0) {
+                int apptID = (int)dataAppointmentView[0, dataAppointmentView.CurrentCell.RowIndex].Value;
 
-            // The following three lines all use lambdas with LINQ to quickly pull the element we need from the lists, while remaining human readable
-            Appointment selectedAppointment = allAppointments.Where(appt => appt.ID == apptID).ElementAt(0);
+                // The following three lines all use lambdas with LINQ to quickly pull the element we need from the lists, while remaining human readable
+                Appointment selectedAppointment = allAppointments.Where(appt => appt.ID == apptID).ElementAt(0);
 
-            UserAccount appointmentUser = allUsers.Where(user => user.ID == selectedAppointment.UserID).ElementAt(0);
-            Customer appointmentCustomer = allCustomers.Where(customer => customer.CustomerID == selectedAppointment.CustomerID).ElementAt(0);
+                UserAccount appointmentUser = allUsers.Where(user => user.ID == selectedAppointment.UserID).ElementAt(0);
+                Customer appointmentCustomer = allCustomers.Where(customer => customer.CustomerID == selectedAppointment.CustomerID).ElementAt(0);
 
-            string userEntry = $"[{appointmentUser.ID}] {appointmentUser.Username}";
-            string customerEntry = $"[{appointmentCustomer.CustomerID}] {appointmentCustomer.Name}";
+                string userEntry = $"[{appointmentUser.ID}] {appointmentUser.Username}";
+                string customerEntry = $"[{appointmentCustomer.CustomerID}] {appointmentCustomer.Name}";
 
-            tboxApptId.Text = selectedAppointment.ID.ToString();
-            cmbApptUsers.Text = userEntry;
-            cmbApptCustomers.Text = customerEntry;
+                tboxApptId.Text = selectedAppointment.ID.ToString();
+                cmbApptUsers.Text = userEntry;
+                cmbApptCustomers.Text = customerEntry;
 
-            tboxApptTitle.Text = selectedAppointment.Title;
-            tboxApptDescription.Text = selectedAppointment.Description;
-            tboxApptLocation.Text = selectedAppointment.Location;
-            tboxApptContact.Text = selectedAppointment.Contact;
+                tboxApptTitle.Text = selectedAppointment.Title;
+                tboxApptDescription.Text = selectedAppointment.Description;
+                tboxApptLocation.Text = selectedAppointment.Location;
+                tboxApptContact.Text = selectedAppointment.Contact;
 
-            if(radioTimeViewLocal.Checked == true) {
-                dtpApptStart.Value = selectedAppointment.StartTime.ToLocalTime();
-                dtpApptEnd.Value = selectedAppointment.EndTime.ToLocalTime();
+                if(radioTimeViewLocal.Checked == true) {
+                    dtpApptStart.Value = selectedAppointment.StartTime.ToLocalTime();
+                    dtpApptEnd.Value = selectedAppointment.EndTime.ToLocalTime();
+                }
+                else {
+                    dtpApptStart.Value = selectedAppointment.StartTime.ToUniversalTime();
+                    dtpApptEnd.Value = selectedAppointment.EndTime.ToUniversalTime();
+                }
+
+                btnApptSave.Enabled = true;
+                btnApptDelete.Enabled = true;
             }
-            else {
-                dtpApptStart.Value = selectedAppointment.StartTime.ToUniversalTime();
-                dtpApptEnd.Value = selectedAppointment.EndTime.ToUniversalTime();
-            }
-
-            btnApptSave.Enabled = true;
-            btnApptDelete.Enabled = true;
         }
         private void OnAppointmentViewOptionChange() {
             DateTime currentDate = DateTime.Now;
@@ -391,6 +395,77 @@ namespace WGU_C969 {
         }
         private void OnTimeViewOptionChange() {
             OnAppointmentViewOptionChange();
+        }
+        private void OnNewAppointmentCreated(object sender, NewAppointmentFormSavingEventArgs args) {
+            // Save new Appointment to Database
+            string newQuery = $"INSERT INTO appointment VALUES ({args.Appointment.ID}, {args.Appointment.CustomerID}, {args.Appointment.UserID}, \'{args.Appointment.Title}\', \'{args.Appointment.Description}\', " +
+                $"\'{args.Appointment.Location}\', \'{args.Appointment.Contact}\', \'{args.Appointment.Type}\', \'{args.Appointment.URL}\', \"{args.Appointment.StartTime.ToString("yyyy-MM-dd HH:mm:ss")}\", " +
+                $"\"{args.Appointment.EndTime.ToString("yyyy-MM-dd HH:mm:ss")}\", \"{args.Appointment.CreateDate.ToString("yyyy-MM-dd HH:mm:ss")}\", \'{args.Appointment.CreatedBy}\', " +
+                $"\"{args.Appointment.LastUpdate.ToString("yyyy-MM-dd HH:mm:ss")}\", \'{args.Appointment.LastUpdatedBy}\')";
+
+            MySqlConnection dbConnection = new MySqlConnection(Settings.DBConnectionString);
+            MySqlCommand newCommand = new MySqlCommand(newQuery, dbConnection);
+
+            try {
+                dbConnection.Open();
+
+                int rowsAffected = newCommand.ExecuteNonQuery();
+
+                if(rowsAffected > 0) {
+                    MessageBox.Show("Appointment saved successfully");
+                }
+            }
+            catch(MySqlException ex) {
+                MessageBox.Show(ex.Message);
+            }
+            finally {
+                dbConnection.Close();
+            }
+
+            // Save new Appointment to List
+            allAppointments.Add(args.Appointment);
+            
+            if(args.Appointment.UserID == activeUser.ID) {
+                userAppointments.Add(new AppointmentListing(args.Appointment.ID, activeUser.Username, allCustomers.Where(name => name.CustomerID == args.Appointment.CustomerID).ElementAt(0).Name,
+                    args.Appointment.Title, args.Appointment.Description, args.Appointment.Type, args.Appointment.StartTime, args.Appointment.EndTime));
+
+                userAppointments.OrderByDescending(id => id.ID);
+
+                ReloadComboboxes();
+                ReloadAppointmentCalander();
+            }
+        }
+        private void OnNewAppointmentFormClosing(object sender, EventArgs args) {
+            dataAppointmentView.SelectionChanged += OnAppointmentViewSelectionChanged;
+        }
+        private void OnNewCustomerCreated(object sender, NewCustomerFormSavingEventArgs args) {
+            // Save new Customer to Database
+            string newQuery = $"INSERT INTO customer VALUES ({args.Customer.CustomerID}, \'{args.Customer.Name}\', {args.Customer.AddressID}, {args.Customer.IsActive}, " +
+                $"\"{args.Customer.DateCreated.ToString("yyyy-MM-dd HH:mm:ss")}\", \'{args.Customer.CreatedBy}\', \"{args.Customer.DateLastUpdated.ToString("yyyy-MM-dd HH:mm:ss")}\", \'{args.Customer.LastUpdatedBy}\')";
+
+            MySqlConnection dbConnection = new MySqlConnection(Settings.DBConnectionString);
+            MySqlCommand newCommand = new MySqlCommand(newQuery, dbConnection);
+
+            try {
+                dbConnection.Open();
+
+                int rowsAffected = newCommand.ExecuteNonQuery();
+
+                if(rowsAffected > 0) {
+                    MessageBox.Show("Customer saved successfully");
+                }
+            }
+            catch(MySqlException ex) {
+                MessageBox.Show("MySQL Error: " + ex.Message);
+            }
+            finally {
+                dbConnection.Close();
+            }
+
+            // Save new Customer to List
+            allCustomers.Add(args.Customer);
+            allCustomers.OrderByDescending(id => id.CustomerID);
+            ReloadComboboxes();
         }
 
         private void cmbCustomerId_SelectedIndexChanged(object sender, EventArgs e) {
@@ -456,6 +531,8 @@ namespace WGU_C969 {
                 MessageBox.Show($"Save affected {rowsAffected} records. Reloading appointment data.");
 
                 if(rowsAffected > 0) {
+                    dataAppointmentView.SelectionChanged -= OnAppointmentViewSelectionChanged;
+
                     for(int i = allAppointments.Count - 1; i >= 0; i--) {
                         if(allAppointments.ElementAt(i).ID == int.Parse(tboxApptId.Text)) {
                             allAppointments.RemoveAt(i);
@@ -463,11 +540,7 @@ namespace WGU_C969 {
                     }
                 }
 
-                dataAppointmentView.SelectionChanged -= OnAppointmentViewSelectionChanged;
-                dataAppointmentView.CurrentCell = dataAppointmentView[0, 0];
                 ReloadAppointmentCalander();
-
-                dataAppointmentView.SelectionChanged += OnAppointmentViewSelectionChanged;
             }
             catch(MySqlException ex) {
                 MessageBox.Show(ex.Message);
@@ -492,46 +565,73 @@ namespace WGU_C969 {
             Appointment updatedAppointment = new Appointment(int.Parse(tboxApptId.Text), customerID, userID, tboxApptTitle.Text, tboxApptDescription.Text, tboxApptLocation.Text, tboxApptContact.Text,
                 cmbApptType.SelectedItem.ToString(), tboxApptUrl.Text, startTime, endTime, existingAppointment.CreateDate, existingAppointment.CreatedBy, DateTime.Now, activeUser.Username);
 
-            // Create Query to Push Data
-            string updateQuery = $"UPDATE appointment SET customerId = \"{updatedAppointment.CustomerID}\", userId = \"{updatedAppointment.UserID}\", " +
-                $"title = \"{updatedAppointment.Title}\", description = \"{updatedAppointment.Description}\", location = \"{updatedAppointment.Location}\", " +
-                $"contact = \"{updatedAppointment.Contact}\", type = \"{updatedAppointment.Type}\", url = \"{updatedAppointment.URL}\", " +
-                $"start = \"{updatedAppointment.StartTime.ToString("yyyy-MM-dd HH:mm:ss")}\", end = \"{updatedAppointment.EndTime.ToString("yyyy-MM-dd HH:mm:ss")}\", " +
-                $"lastUpdate = \"{updatedAppointment.LastUpdate.ToString("yyyy-MM-dd HH:mm:ss")}\", lastUpdateBy = \"{updatedAppointment.LastUpdatedBy}\", " +
-                $"WHERE appointmentId = \"{updatedAppointment.ID}\"";
+            // Validate DateTimes before moving on any further
+            bool datesValid = ValidateAppointmentTimes(updatedAppointment);
 
-            MySqlConnection dbConnection = new MySqlConnection(Settings.DBConnectionString);
-            MySqlCommand updateCommand = new MySqlCommand(updateQuery, dbConnection);
+            if(datesValid == true) {
+                // Create Query to Push Data
+                string updateQuery = $"UPDATE appointment SET customerId = \"{updatedAppointment.CustomerID}\", userId = \"{updatedAppointment.UserID}\", " +
+                    $"title = \"{updatedAppointment.Title}\", description = \"{updatedAppointment.Description}\", location = \"{updatedAppointment.Location}\", " +
+                    $"contact = \"{updatedAppointment.Contact}\", type = \"{updatedAppointment.Type}\", url = \"{updatedAppointment.URL}\", " +
+                    $"start = \"{updatedAppointment.StartTime.ToString("yyyy-MM-dd HH:mm:ss")}\", end = \"{updatedAppointment.EndTime.ToString("yyyy-MM-dd HH:mm:ss")}\", " +
+                    $"lastUpdate = \"{updatedAppointment.LastUpdate.ToString("yyyy-MM-dd HH:mm:ss")}\", lastUpdateBy = \"{updatedAppointment.LastUpdatedBy}\", " +
+                    $"WHERE appointmentId = \"{updatedAppointment.ID}\"";
 
-            try {
-                dbConnection.Open();
+                MySqlConnection dbConnection = new MySqlConnection(Settings.DBConnectionString);
+                MySqlCommand updateCommand = new MySqlCommand(updateQuery, dbConnection);
 
-                int rowsAffected = updateCommand.ExecuteNonQuery();
+                try {
+                    dbConnection.Open();
 
-                if(rowsAffected > 0) {
-                    MessageBox.Show($"Updated {rowsAffected} records. Reloading Data.");
-                    
-                    for(int i = allAppointments.Count - 1; i >= 0; i--) {
-                        if(allAppointments.ElementAt(i).ID == updatedAppointment.ID) {
-                            allAppointments.RemoveAt(i);
+                    int rowsAffected = updateCommand.ExecuteNonQuery();
+
+                    if(rowsAffected > 0) {
+                        MessageBox.Show($"Updated {rowsAffected} records. Reloading Data.");
+
+                        for(int i = allAppointments.Count - 1; i >= 0; i--) {
+                            if(allAppointments.ElementAt(i).ID == updatedAppointment.ID) {
+                                allAppointments.RemoveAt(i);
+                            }
                         }
+
+                        allAppointments.Add(updatedAppointment);
                     }
 
-                    allAppointments.Add(updatedAppointment);
+                    ReloadAppointmentCalander();
                 }
-
-                ReloadAppointmentCalander();
-            }
-            catch(MySqlException ex) {
-                MessageBox.Show(ex.Message);
-            }
-            finally {
-                dbConnection.Close();
+                catch(MySqlException ex) {
+                    MessageBox.Show(ex.Message);
+                }
+                finally {
+                    dbConnection.Close();
+                }
             }
         }
-
         private void btnApptNew_Click(object sender, EventArgs e) {
+            // Get New ID for Appointment
+            int newID = (allAppointments.Select(appt => appt.ID).Max()) + 1;
 
+            // Create NewAppointmentForm
+            NewAppointmentForm newApptForm = new NewAppointmentForm(userAppointments, activeUser);
+            newApptForm.TBoxAppointmentID.Text = newID.ToString();
+            foreach(var cust in cmbApptCustomers.Items) {
+                newApptForm.CmbCustomerId.Items.Add(cust);
+            }
+            foreach(var cust in cmbApptUsers.Items) {
+                newApptForm.CmbUserId.Items.Add(cust);
+            }
+            foreach(var cust in cmbApptType.Items) {
+                newApptForm.CmbApptType.Items.Add(cust);
+            }
+
+            newApptForm.CmbApptType.SelectedIndex = 0;
+            newApptForm.CmbCustomerId.SelectedIndex = 0;
+            newApptForm.CmbUserId.SelectedIndex = 0;
+
+            newApptForm.FormSaving += OnNewAppointmentCreated;
+            newApptForm.FormClosing += OnNewAppointmentFormClosing;
+            
+            newApptForm.ShowDialog();
         }
 
         private void btnCustomerDelete_Click(object sender, EventArgs e) {
@@ -612,9 +712,22 @@ namespace WGU_C969 {
                 dbConnection.Close();
             }
         }
-
         private void btnCustomerNew_Click(object sender, EventArgs e) {
+            // Get New ID for Appointment
+            int newID = (allCustomers.Select(appt => appt.CustomerID).Max()) + 1;
 
+            // Create NewAppointmentForm
+            NewCustomerForm newCustomerForm = new NewCustomerForm(activeUser);
+            newCustomerForm.TBoxCustomerID.Text = newID.ToString();
+            foreach(var cust in cmbCustomerAddress.Items) {
+                newCustomerForm.CmbCustomerAddress.Items.Add(cust);
+            }
+
+            newCustomerForm.CmbCustomerAddress.SelectedIndex = 0;
+
+            newCustomerForm.FormSaving += OnNewCustomerCreated;
+
+            newCustomerForm.ShowDialog();
         }
     }
 }

@@ -28,6 +28,8 @@
             this.grpAppointment = new System.Windows.Forms.GroupBox();
             this.btnApptNew = new System.Windows.Forms.Button();
             this.grpApptDetails = new System.Windows.Forms.GroupBox();
+            this.tboxApptUrl = new System.Windows.Forms.TextBox();
+            this.lblApptUrl = new System.Windows.Forms.Label();
             this.dtpApptEnd = new System.Windows.Forms.DateTimePicker();
             this.lblApptEnd = new System.Windows.Forms.Label();
             this.dtpApptStart = new System.Windows.Forms.DateTimePicker();
@@ -73,8 +75,6 @@
             this.radioTimeViewLocal = new System.Windows.Forms.RadioButton();
             this.radioTimeViewUTC = new System.Windows.Forms.RadioButton();
             this.lblTimeSet = new System.Windows.Forms.Label();
-            this.tboxApptUrl = new System.Windows.Forms.TextBox();
-            this.lblApptUrl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataAppointmentView)).BeginInit();
             this.grpAppointment.SuspendLayout();
             this.grpApptDetails.SuspendLayout();
@@ -160,9 +160,25 @@
             this.grpApptDetails.TabStop = false;
             this.grpApptDetails.Text = "Details (Bold are Required)";
             // 
+            // tboxApptUrl
+            // 
+            this.tboxApptUrl.Location = new System.Drawing.Point(182, 101);
+            this.tboxApptUrl.Name = "tboxApptUrl";
+            this.tboxApptUrl.Size = new System.Drawing.Size(100, 20);
+            this.tboxApptUrl.TabIndex = 15;
+            // 
+            // lblApptUrl
+            // 
+            this.lblApptUrl.AutoSize = true;
+            this.lblApptUrl.Location = new System.Drawing.Point(135, 104);
+            this.lblApptUrl.Name = "lblApptUrl";
+            this.lblApptUrl.Size = new System.Drawing.Size(32, 13);
+            this.lblApptUrl.TabIndex = 14;
+            this.lblApptUrl.Text = "URL:";
+            // 
             // dtpApptEnd
             // 
-            this.dtpApptEnd.CustomFormat = "ddd dd MMM yyyy HH:MM:ss tt";
+            this.dtpApptEnd.CustomFormat = "ddd dd MMM yyyy HH:mm:ss tt";
             this.dtpApptEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpApptEnd.Location = new System.Drawing.Point(71, 180);
             this.dtpApptEnd.Name = "dtpApptEnd";
@@ -182,7 +198,7 @@
             // 
             // dtpApptStart
             // 
-            this.dtpApptStart.CustomFormat = "ddd dd MMM yyyy HH:MM:ss tt";
+            this.dtpApptStart.CustomFormat = "ddd dd MMM yyyy HH:mm:ss tt";
             this.dtpApptStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpApptStart.Location = new System.Drawing.Point(71, 154);
             this.dtpApptStart.Name = "dtpApptStart";
@@ -512,7 +528,12 @@
             // 
             // cmbReportType
             // 
+            this.cmbReportType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbReportType.FormattingEnabled = true;
+            this.cmbReportType.Items.AddRange(new object[] {
+            "All Appts by TYPE by MONTH",
+            "All Appts for USER",
+            "All ACTIVE Customers"});
             this.cmbReportType.Location = new System.Drawing.Point(6, 19);
             this.cmbReportType.Name = "cmbReportType";
             this.cmbReportType.Size = new System.Drawing.Size(162, 21);
@@ -606,22 +627,6 @@
             this.lblTimeSet.Size = new System.Drawing.Size(59, 13);
             this.lblTimeSet.TabIndex = 1;
             this.lblTimeSet.Text = "Time View:";
-            // 
-            // tboxApptUrl
-            // 
-            this.tboxApptUrl.Location = new System.Drawing.Point(182, 101);
-            this.tboxApptUrl.Name = "tboxApptUrl";
-            this.tboxApptUrl.Size = new System.Drawing.Size(100, 20);
-            this.tboxApptUrl.TabIndex = 15;
-            // 
-            // lblApptUrl
-            // 
-            this.lblApptUrl.AutoSize = true;
-            this.lblApptUrl.Location = new System.Drawing.Point(135, 104);
-            this.lblApptUrl.Name = "lblApptUrl";
-            this.lblApptUrl.Size = new System.Drawing.Size(32, 13);
-            this.lblApptUrl.TabIndex = 14;
-            this.lblApptUrl.Text = "URL:";
             // 
             // MainForm
             // 

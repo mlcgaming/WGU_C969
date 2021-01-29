@@ -48,6 +48,8 @@
             this.lblApptCustomer = new System.Windows.Forms.Label();
             this.lblApptUser = new System.Windows.Forms.Label();
             this.lblApptID = new System.Windows.Forms.Label();
+            this.tboxApptUrl = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.grpAppointment.SuspendLayout();
             this.grpApptDetails.SuspendLayout();
             this.SuspendLayout();
@@ -79,9 +81,12 @@
             this.btnSaveForm.TabIndex = 10;
             this.btnSaveForm.Text = "Save";
             this.btnSaveForm.UseVisualStyleBackColor = true;
+            this.btnSaveForm.Click += new System.EventHandler(this.btnSaveForm_Click);
             // 
             // grpApptDetails
             // 
+            this.grpApptDetails.Controls.Add(this.tboxApptUrl);
+            this.grpApptDetails.Controls.Add(this.label1);
             this.grpApptDetails.Controls.Add(this.dtpApptEnd);
             this.grpApptDetails.Controls.Add(this.lblApptEnd);
             this.grpApptDetails.Controls.Add(this.dtpApptStart);
@@ -105,7 +110,7 @@
             // 
             // dtpApptEnd
             // 
-            this.dtpApptEnd.CustomFormat = "ddd dd MMM yyyy HH:MM:ss tt";
+            this.dtpApptEnd.CustomFormat = "ddd dd MMM yyyy HH:mm:ss tt";
             this.dtpApptEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpApptEnd.Location = new System.Drawing.Point(71, 180);
             this.dtpApptEnd.Name = "dtpApptEnd";
@@ -125,7 +130,7 @@
             // 
             // dtpApptStart
             // 
-            this.dtpApptStart.CustomFormat = "ddd dd MMM yyyy HH:MM:ss tt";
+            this.dtpApptStart.CustomFormat = "ddd dd MMM yyyy HH:mm:ss tt";
             this.dtpApptStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpApptStart.Location = new System.Drawing.Point(71, 154);
             this.dtpApptStart.Name = "dtpApptStart";
@@ -146,11 +151,6 @@
             // cmbApptType
             // 
             this.cmbApptType.FormattingEnabled = true;
-            this.cmbApptType.Items.AddRange(new object[] {
-            "Presentation",
-            "Scrum",
-            "Meeting",
-            "Evaluation"});
             this.cmbApptType.Location = new System.Drawing.Point(122, 127);
             this.cmbApptType.Name = "cmbApptType";
             this.cmbApptType.Size = new System.Drawing.Size(160, 21);
@@ -168,15 +168,15 @@
             // 
             // tboxApptContact
             // 
-            this.tboxApptContact.Location = new System.Drawing.Point(55, 101);
+            this.tboxApptContact.Location = new System.Drawing.Point(196, 75);
             this.tboxApptContact.Name = "tboxApptContact";
-            this.tboxApptContact.Size = new System.Drawing.Size(227, 20);
+            this.tboxApptContact.Size = new System.Drawing.Size(86, 20);
             this.tboxApptContact.TabIndex = 7;
             // 
             // lblApptContact
             // 
             this.lblApptContact.AutoSize = true;
-            this.lblApptContact.Location = new System.Drawing.Point(8, 104);
+            this.lblApptContact.Location = new System.Drawing.Point(149, 78);
             this.lblApptContact.Name = "lblApptContact";
             this.lblApptContact.Size = new System.Drawing.Size(47, 13);
             this.lblApptContact.TabIndex = 6;
@@ -186,7 +186,7 @@
             // 
             this.tboxApptLocation.Location = new System.Drawing.Point(61, 75);
             this.tboxApptLocation.Name = "tboxApptLocation";
-            this.tboxApptLocation.Size = new System.Drawing.Size(221, 20);
+            this.tboxApptLocation.Size = new System.Drawing.Size(82, 20);
             this.tboxApptLocation.TabIndex = 5;
             // 
             // lblApptLocation
@@ -239,6 +239,7 @@
             this.btnCancelForm.TabIndex = 9;
             this.btnCancelForm.Text = "Cancel";
             this.btnCancelForm.UseVisualStyleBackColor = true;
+            this.btnCancelForm.Click += new System.EventHandler(this.btnCancelForm_Click);
             // 
             // tboxApptId
             // 
@@ -256,6 +257,7 @@
             this.btnResetForm.TabIndex = 8;
             this.btnResetForm.Text = "Reset";
             this.btnResetForm.UseVisualStyleBackColor = true;
+            this.btnResetForm.Click += new System.EventHandler(this.btnResetForm_Click);
             // 
             // cmbApptCustomers
             // 
@@ -302,6 +304,22 @@
             this.lblApptID.TabIndex = 0;
             this.lblApptID.Text = "ID:";
             // 
+            // tboxApptUrl
+            // 
+            this.tboxApptUrl.Location = new System.Drawing.Point(46, 101);
+            this.tboxApptUrl.Name = "tboxApptUrl";
+            this.tboxApptUrl.Size = new System.Drawing.Size(236, 20);
+            this.tboxApptUrl.TabIndex = 15;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 104);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(32, 13);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "URL:";
+            // 
             // NewAppointmentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -309,7 +327,7 @@
             this.ClientSize = new System.Drawing.Size(333, 353);
             this.Controls.Add(this.grpAppointment);
             this.Name = "NewAppointmentForm";
-            this.Text = "NewAppointmentForm";
+            this.Text = "New Appointment";
             this.grpAppointment.ResumeLayout(false);
             this.grpAppointment.PerformLayout();
             this.grpApptDetails.ResumeLayout(false);
@@ -345,5 +363,7 @@
         private System.Windows.Forms.Label lblApptCustomer;
         private System.Windows.Forms.Label lblApptUser;
         private System.Windows.Forms.Label lblApptID;
+        private System.Windows.Forms.TextBox tboxApptUrl;
+        private System.Windows.Forms.Label label1;
     }
 }
