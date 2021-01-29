@@ -525,6 +525,7 @@
             this.btnReportGenerate.TabIndex = 11;
             this.btnReportGenerate.Text = "Generate";
             this.btnReportGenerate.UseVisualStyleBackColor = true;
+            this.btnReportGenerate.Click += new System.EventHandler(this.btnReportGenerate_Click);
             // 
             // cmbReportType
             // 

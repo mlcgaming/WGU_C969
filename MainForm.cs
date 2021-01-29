@@ -729,5 +729,52 @@ namespace WGU_C969 {
 
             newCustomerForm.ShowDialog();
         }
+
+        private void btnReportGenerate_Click(object sender, EventArgs e) {
+            switch(cmbReportType.SelectedIndex) {
+                case 0: {
+                        // TYPE / MONTH Report
+                        ReportOptionsTypeMonthForm reportOptionsform = new ReportOptionsTypeMonthForm(allAppointments);
+
+                        foreach(var apptType in cmbApptType.Items) {
+                            reportOptionsform.CmbAppointmentTypes.Items.Add(apptType);
+                        }
+
+                        reportOptionsform.ShowDialog();
+                        break;
+                    }
+                case 1: {
+                        // By User Report
+                        ReportUserAppointmentsForm reportUserAppointments = new ReportUserAppointmentsForm(allUsers, allAppointments);
+                        reportUserAppointments.ShowDialog();
+                        break;
+                    }
+                case 2: {
+                        // Customer Report
+                        IEnumerable<Customer> customers =
+                            from cust in allCustomers
+                            where cust.IsActive == true
+                            select cust;
+
+                        StringBuilder reportSB = new StringBuilder();
+
+                        if(customers.Count() > 0) {
+                            reportSB.Append("Active Customers:");
+                            reportSB.Append("\r\n");
+
+                            foreach(var cust in customers) {
+                                reportSB.Append($"{cust.Name}, Last Updated on {cust.DateLastUpdated}");
+                                reportSB.Append("\r\n");
+                            }
+                        }
+                        else {
+                            reportSB.Append("No Active Customers");
+                        }
+
+                        MessageBox.Show(reportSB.ToString());
+                        break;
+                    }
+            }
+        }
     }
 }
