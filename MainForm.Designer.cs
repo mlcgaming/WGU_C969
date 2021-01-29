@@ -73,6 +73,8 @@
             this.radioTimeViewLocal = new System.Windows.Forms.RadioButton();
             this.radioTimeViewUTC = new System.Windows.Forms.RadioButton();
             this.lblTimeSet = new System.Windows.Forms.Label();
+            this.tboxApptUrl = new System.Windows.Forms.TextBox();
+            this.lblApptUrl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataAppointmentView)).BeginInit();
             this.grpAppointment.SuspendLayout();
             this.grpApptDetails.SuspendLayout();
@@ -135,6 +137,8 @@
             // 
             // grpApptDetails
             // 
+            this.grpApptDetails.Controls.Add(this.tboxApptUrl);
+            this.grpApptDetails.Controls.Add(this.lblApptUrl);
             this.grpApptDetails.Controls.Add(this.dtpApptEnd);
             this.grpApptDetails.Controls.Add(this.lblApptEnd);
             this.grpApptDetails.Controls.Add(this.dtpApptStart);
@@ -223,7 +227,7 @@
             // 
             this.tboxApptContact.Location = new System.Drawing.Point(55, 101);
             this.tboxApptContact.Name = "tboxApptContact";
-            this.tboxApptContact.Size = new System.Drawing.Size(227, 20);
+            this.tboxApptContact.Size = new System.Drawing.Size(69, 20);
             this.tboxApptContact.TabIndex = 7;
             // 
             // lblApptContact
@@ -603,6 +607,22 @@
             this.lblTimeSet.TabIndex = 1;
             this.lblTimeSet.Text = "Time View:";
             // 
+            // tboxApptUrl
+            // 
+            this.tboxApptUrl.Location = new System.Drawing.Point(182, 101);
+            this.tboxApptUrl.Name = "tboxApptUrl";
+            this.tboxApptUrl.Size = new System.Drawing.Size(100, 20);
+            this.tboxApptUrl.TabIndex = 15;
+            // 
+            // lblApptUrl
+            // 
+            this.lblApptUrl.AutoSize = true;
+            this.lblApptUrl.Location = new System.Drawing.Point(135, 104);
+            this.lblApptUrl.Name = "lblApptUrl";
+            this.lblApptUrl.Size = new System.Drawing.Size(32, 13);
+            this.lblApptUrl.TabIndex = 14;
+            this.lblApptUrl.Text = "URL:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -688,6 +708,8 @@
         private System.Windows.Forms.RadioButton radioTimeViewUTC;
         private System.Windows.Forms.RadioButton radioTimeViewLocal;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TextBox tboxApptUrl;
+        private System.Windows.Forms.Label lblApptUrl;
     }
 }
 
