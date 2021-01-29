@@ -57,6 +57,7 @@
             // 
             // btnSaveForm
             // 
+            this.btnSaveForm.Enabled = false;
             this.btnSaveForm.Location = new System.Drawing.Point(20, 113);
             this.btnSaveForm.Name = "btnSaveForm";
             this.btnSaveForm.Size = new System.Drawing.Size(75, 23);
@@ -75,6 +76,7 @@
             this.checkCustomerActive.TabIndex = 4;
             this.checkCustomerActive.Text = "Active Account";
             this.checkCustomerActive.UseVisualStyleBackColor = true;
+            this.checkCustomerActive.CheckedChanged += new System.EventHandler(this.checkCustomerActive_CheckedChanged);
             // 
             // cmbCustomerAddress
             // 
@@ -84,6 +86,7 @@
             this.cmbCustomerAddress.Name = "cmbCustomerAddress";
             this.cmbCustomerAddress.Size = new System.Drawing.Size(192, 21);
             this.cmbCustomerAddress.TabIndex = 3;
+            this.cmbCustomerAddress.SelectedIndexChanged += new System.EventHandler(this.cmbCustomerAddress_SelectedIndexChanged);
             // 
             // lblCustomerAddress
             // 
@@ -101,6 +104,7 @@
             this.tboxCustomerName.Name = "tboxCustomerName";
             this.tboxCustomerName.Size = new System.Drawing.Size(127, 20);
             this.tboxCustomerName.TabIndex = 1;
+            this.tboxCustomerName.TextChanged += new System.EventHandler(this.tboxCustomerName_TextChanged);
             // 
             // lblCustomerName
             // 

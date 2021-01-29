@@ -73,6 +73,19 @@ namespace WGU_C969 {
             }
         }
 
+        private bool ValidateTextboxes() {
+            string title = tboxApptTitle.Text;
+            string type = cmbApptType.SelectedItem.ToString();
+
+            if(title.Replace(" ", "").Length == 0) {
+                return false;
+            }
+            if(type.Replace(" ", "").Length == 0) {
+                return false;
+            }
+
+            return true;
+        }
         private bool ValidateAppointmentTimes(Appointment appointment) {
             try {
                 if(appointment.StartTime.Hour < 8 || appointment.StartTime.Hour > 17) {
@@ -110,6 +123,24 @@ namespace WGU_C969 {
 
         private void OnFormSaving(Appointment appointment) {
             FormSaving?.Invoke(null, new NewAppointmentFormSavingEventArgs(appointment));
+        }
+
+        private void tboxApptTitle_TextChanged(object sender, EventArgs e) {
+            if(ValidateTextboxes() == true) {
+                btnSaveForm.Enabled = true;
+            }
+            else {
+                btnSaveForm.Enabled = false;
+            }
+        }
+
+        private void cmbApptType_SelectedIndexChanged(object sender, EventArgs e) {
+            if(ValidateTextboxes() == true) {
+                btnSaveForm.Enabled = true;
+            }
+            else {
+                btnSaveForm.Enabled = false;
+            }
         }
     }
 }

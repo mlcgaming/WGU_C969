@@ -42,3 +42,5 @@ C:\Users\MCourneya\Source\Repos\mlcgaming\WGU_C969\bin\Debug\WGU_C969.pdb
 C:\Users\MCourneya\Source\Repos\mlcgaming\WGU_C969\obj\Debug\WGU_C969.csproj.CopyComplete
 C:\Users\Max Courneya\source\repos\WGU_C969\obj\Debug\WGU_C969.ReportOptionsTypeMonthForm.resources
 C:\Users\Max Courneya\source\repos\WGU_C969\obj\Debug\WGU_C969.ReportUserAppointmentsForm.resources
+C:\Users\MCourneya\source\repos\mlcgaming\WGU_C969\obj\Debug\WGU_C969.ReportOptionsTypeMonthForm.resources
+C:\Users\MCourneya\source\repos\mlcgaming\WGU_C969\obj\Debug\WGU_C969.ReportUserAppointmentsForm.resources

@@ -28,6 +28,20 @@ namespace WGU_C969 {
             this.activeUser = activeUser;
         }
 
+        private bool ValidateCustomerTextboxes() {
+            string name = tboxCustomerName.Text;
+            string addr = cmbCustomerAddress.SelectedItem.ToString();
+
+            if(name.Replace(" ", "").Length == 0) {
+                return false;
+            }
+            if(addr.Replace(" ", "").Length == 0) {
+                return false;
+            }
+
+            return true;
+        }
+
         private void btnCancelForm_Click(object sender, EventArgs e) {
             Close();
         }
@@ -50,6 +64,33 @@ namespace WGU_C969 {
 
         private void OnFormSaving(Customer customer) {
             FormSaving?.Invoke(null, new NewCustomerFormSavingEventArgs(customer));
+        }
+
+        private void tboxCustomerName_TextChanged(object sender, EventArgs e) {
+            if(ValidateCustomerTextboxes() == true) {
+                btnSaveForm.Enabled = true;
+            }
+            else {
+                btnSaveForm.Enabled = false;
+            }
+        }
+
+        private void cmbCustomerAddress_SelectedIndexChanged(object sender, EventArgs e) {
+            if(ValidateCustomerTextboxes() == true) {
+                btnSaveForm.Enabled = true;
+            }
+            else {
+                btnSaveForm.Enabled = false;
+            }
+        }
+
+        private void checkCustomerActive_CheckedChanged(object sender, EventArgs e) {
+            if(ValidateCustomerTextboxes() == true) {
+                btnSaveForm.Enabled = true;
+            }
+            else {
+                btnSaveForm.Enabled = false;
+            }
         }
     }
 }

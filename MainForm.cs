@@ -294,6 +294,32 @@ namespace WGU_C969 {
 
             return true;
         }
+        private bool ValidateAppointmentTextboxes() {
+            string title = tboxApptTitle.Text;
+            string type = cmbApptType.SelectedItem.ToString();
+
+            if(title.Replace(" ", "").Length == 0) {
+                return false;
+            }
+            if(type.Replace(" ", "").Length == 0) {
+                return false;
+            }
+
+            return true;
+        }
+        private bool ValidateCustomerTextboxes() {
+            string name = tboxCustomerName.Text;
+            string addr = cmbCustomerAddress.SelectedItem.ToString();
+
+            if(name.Replace(" ", "").Length == 0) {
+                return false;
+            }
+            if(addr.Replace(" ", "").Length == 0) {
+                return false;
+            }
+
+            return true;
+        }
         private Appointment GetClosestAppointment() {
             Appointment nearestAppointment;
 
@@ -331,7 +357,7 @@ namespace WGU_C969 {
                 if(soonestAppointment.StartTime < DateTime.Now.AddMinutes(15)) {
                     string customerName = (from c in allCustomers where c.CustomerID == soonestAppointment.CustomerID select c).ElementAt(0).Name;
 
-                    MessageBox.Show($"You have a meeting with {customerName} in {(soonestAppointment.StartTime - DateTime.Now).Minutes}.");
+                    MessageBox.Show($"You have a meeting with {customerName} in {(soonestAppointment.StartTime - DateTime.Now).Minutes} minutes.");
                 }
             }
         }
@@ -774,6 +800,48 @@ namespace WGU_C969 {
                         MessageBox.Show(reportSB.ToString());
                         break;
                     }
+            }
+        }
+
+        private void tboxApptTitle_TextChanged(object sender, EventArgs e) {
+            if(ValidateAppointmentTextboxes() == true) {
+                btnApptSave.Enabled = true;
+            }
+            else {
+                btnApptSave.Enabled = false;
+            }
+        }
+        private void cmbApptType_SelectedIndexChanged(object sender, EventArgs e) {
+            if(ValidateAppointmentTextboxes() == true) {
+                btnApptSave.Enabled = true;
+            }
+            else {
+                btnApptSave.Enabled = false;
+            }
+        }
+
+        private void tboxCustomerName_TextChanged(object sender, EventArgs e) {
+            if(ValidateCustomerTextboxes() == true) {
+                btnCustomerSave.Enabled = true;
+            }
+            else {
+                btnCustomerSave.Enabled = false;
+            }
+        }
+        private void cmbCustomerAddress_SelectedIndexChanged(object sender, EventArgs e) {
+            if(ValidateCustomerTextboxes() == true) {
+                btnCustomerSave.Enabled = true;
+            }
+            else {
+                btnCustomerSave.Enabled = false;
+            }
+        }
+        private void checkCustomerActive_CheckedChanged(object sender, EventArgs e) {
+            if(ValidateCustomerTextboxes() == true) {
+                btnCustomerSave.Enabled = true;
+            }
+            else {
+                btnCustomerSave.Enabled = false;
             }
         }
     }

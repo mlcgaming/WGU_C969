@@ -218,6 +218,7 @@
             // 
             // cmbApptType
             // 
+            this.cmbApptType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbApptType.FormattingEnabled = true;
             this.cmbApptType.Items.AddRange(new object[] {
             "Presentation",
@@ -228,6 +229,7 @@
             this.cmbApptType.Name = "cmbApptType";
             this.cmbApptType.Size = new System.Drawing.Size(160, 21);
             this.cmbApptType.TabIndex = 9;
+            this.cmbApptType.SelectedIndexChanged += new System.EventHandler(this.cmbApptType_SelectedIndexChanged);
             // 
             // lblApptType
             // 
@@ -293,6 +295,7 @@
             this.tboxApptTitle.Name = "tboxApptTitle";
             this.tboxApptTitle.Size = new System.Drawing.Size(242, 20);
             this.tboxApptTitle.TabIndex = 1;
+            this.tboxApptTitle.TextChanged += new System.EventHandler(this.tboxApptTitle_TextChanged);
             // 
             // lblApptTitle
             // 
@@ -450,6 +453,7 @@
             this.checkCustomerActive.TabIndex = 4;
             this.checkCustomerActive.Text = "Active Account";
             this.checkCustomerActive.UseVisualStyleBackColor = true;
+            this.checkCustomerActive.CheckedChanged += new System.EventHandler(this.checkCustomerActive_CheckedChanged);
             // 
             // cmbCustomerAddress
             // 
@@ -459,6 +463,7 @@
             this.cmbCustomerAddress.Name = "cmbCustomerAddress";
             this.cmbCustomerAddress.Size = new System.Drawing.Size(183, 21);
             this.cmbCustomerAddress.TabIndex = 3;
+            this.cmbCustomerAddress.SelectedIndexChanged += new System.EventHandler(this.cmbCustomerAddress_SelectedIndexChanged);
             // 
             // lblCustomerAddress
             // 
@@ -476,6 +481,7 @@
             this.tboxCustomerName.Name = "tboxCustomerName";
             this.tboxCustomerName.Size = new System.Drawing.Size(192, 20);
             this.tboxCustomerName.TabIndex = 1;
+            this.tboxCustomerName.TextChanged += new System.EventHandler(this.tboxCustomerName_TextChanged);
             // 
             // lblCustomerName
             // 

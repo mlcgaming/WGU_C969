@@ -26,6 +26,8 @@
             this.grpAppointment = new System.Windows.Forms.GroupBox();
             this.btnSaveForm = new System.Windows.Forms.Button();
             this.grpApptDetails = new System.Windows.Forms.GroupBox();
+            this.tboxApptUrl = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.dtpApptEnd = new System.Windows.Forms.DateTimePicker();
             this.lblApptEnd = new System.Windows.Forms.Label();
             this.dtpApptStart = new System.Windows.Forms.DateTimePicker();
@@ -48,8 +50,6 @@
             this.lblApptCustomer = new System.Windows.Forms.Label();
             this.lblApptUser = new System.Windows.Forms.Label();
             this.lblApptID = new System.Windows.Forms.Label();
-            this.tboxApptUrl = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.grpAppointment.SuspendLayout();
             this.grpApptDetails.SuspendLayout();
             this.SuspendLayout();
@@ -75,6 +75,7 @@
             // 
             // btnSaveForm
             // 
+            this.btnSaveForm.Enabled = false;
             this.btnSaveForm.Location = new System.Drawing.Point(9, 292);
             this.btnSaveForm.Name = "btnSaveForm";
             this.btnSaveForm.Size = new System.Drawing.Size(75, 23);
@@ -107,6 +108,22 @@
             this.grpApptDetails.TabIndex = 6;
             this.grpApptDetails.TabStop = false;
             this.grpApptDetails.Text = "Details (Bold are Required)";
+            // 
+            // tboxApptUrl
+            // 
+            this.tboxApptUrl.Location = new System.Drawing.Point(46, 101);
+            this.tboxApptUrl.Name = "tboxApptUrl";
+            this.tboxApptUrl.Size = new System.Drawing.Size(236, 20);
+            this.tboxApptUrl.TabIndex = 15;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 104);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(32, 13);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "URL:";
             // 
             // dtpApptEnd
             // 
@@ -150,11 +167,13 @@
             // 
             // cmbApptType
             // 
+            this.cmbApptType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbApptType.FormattingEnabled = true;
             this.cmbApptType.Location = new System.Drawing.Point(122, 127);
             this.cmbApptType.Name = "cmbApptType";
             this.cmbApptType.Size = new System.Drawing.Size(160, 21);
             this.cmbApptType.TabIndex = 9;
+            this.cmbApptType.SelectedIndexChanged += new System.EventHandler(this.cmbApptType_SelectedIndexChanged);
             // 
             // lblApptType
             // 
@@ -220,6 +239,7 @@
             this.tboxApptTitle.Name = "tboxApptTitle";
             this.tboxApptTitle.Size = new System.Drawing.Size(242, 20);
             this.tboxApptTitle.TabIndex = 1;
+            this.tboxApptTitle.TextChanged += new System.EventHandler(this.tboxApptTitle_TextChanged);
             // 
             // lblApptTitle
             // 
@@ -303,22 +323,6 @@
             this.lblApptID.Size = new System.Drawing.Size(21, 13);
             this.lblApptID.TabIndex = 0;
             this.lblApptID.Text = "ID:";
-            // 
-            // tboxApptUrl
-            // 
-            this.tboxApptUrl.Location = new System.Drawing.Point(46, 101);
-            this.tboxApptUrl.Name = "tboxApptUrl";
-            this.tboxApptUrl.Size = new System.Drawing.Size(236, 20);
-            this.tboxApptUrl.TabIndex = 15;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 104);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(32, 13);
-            this.label1.TabIndex = 14;
-            this.label1.Text = "URL:";
             // 
             // NewAppointmentForm
             // 
